@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#personal data
+Past_experiments/Pilot2/collected_data

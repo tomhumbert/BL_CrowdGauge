@@ -1,0 +1,869 @@
+---
+title: "B.L. Experiment Result Analysis"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 2
+    number_sections: yes
+    highlight: espresso
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
+---
+
+```{r imports, message=FALSE, include=FALSE}
+################################################################################
+####        Library imports and setting general theme of the plots          ####
+################################################################################
+
+library(dplyr)
+library(readr)
+library(ggplot2)
+library("gridExtra")
+library(tidyverse)
+library(ggthemes)
+library(hash)
+
+old <- theme_set(theme_stata())
+
+#################################################################################
+#### Set path to experiment results file here (generated from python script) ####
+#################################################################################
+
+exp_results <- read_csv("D:/VU/Thesis/BL_exp_creator/experiment_data_computed/data_all_ans.csv",
+                        col_names = c("index", "c_name", "img", "lvl", "branch", 
+                                      "stim_type", "participant_id", "accuracy", "react_time"),
+                        col_types = cols('i','c','f','f','f','l','c','n','n'),
+                        skip = 1)
+
+rows <- length(exp_results$index)
+p_num <- length(unique(exp_results$participant_id))
+part_id <- sort(c(1:rows)%%p_num)+1
+stim_num <- rows/p_num
+
+exp_results$p_id <- as.factor(part_id)
+
+#make sure to not run this twice on accident
+exp_results <- exp_results %>%
+  mutate(accuracy = abs(accuracy-2)) %>%
+  mutate(stimulus = as.factor(paste(c_name, img, sep = "|")))
+```
+\newpage
+
+# Overview
+
+## Summaries of the columns
+
+```{r table overview, echo=FALSE}
+rt_mean <- mean(exp_results$react_time)
+acc_mean <- mean(exp_results$accuracy)
+summary(exp_results[c("stimulus", "lvl", "branch", "p_id", "accuracy", "react_time")])
+```
+
+The counts of all stimuli, levels and participant IDs should be the same within their group. If some are higher than others, you might have duplicates and need to take another look at the input data before the evaluation. Here, you can also already see the overall mean accuracy of the participant answers, as well as the mean and median reaction times.
+
+## Reaction time and Mistake Overview
+
+The following box plots in Fig.1 give a short overview of the reaction time means and quantiles with regards to the category levels and also to the stimulus type. A closer look into reaction times can be found in section 4.
+
+```{r basic rt overview, echo=FALSE, fig.height=5, fig.width=6}
+basic_results <- ggplot(exp_results, mapping = aes(x=lvl, y=react_time)) + 
+  geom_boxplot() + 
+  geom_boxplot(data=exp_results, mapping = aes(x=stim_type, y=react_time)) + 
+  labs(caption = "Fig.1: Basic reaction times overview.") + 
+  xlab("Groups of interest") +
+  ylab("Reaction Time") + 
+  scale_x_discrete(limits = c("hypernym","bl","hyponym", "TRUE", "FALSE")) + 
+  scale_y_continuous(n.breaks = 10) +
+  scale_fill_stata()
+
+basic_results
+```
+
+Figure 2 is meant to give an overview of the amount of mistakes made by participants with regard to the main category branches. If the branches are balanced (same amount of categories in each group), then the columns in the plot should have the same height.
+
+```{r mistake overview per branch, echo=FALSE, fig.height=5, fig.width=6}
+branch_ov <- exp_results %>%
+  group_by(stimulus,branch,accuracy) %>%
+  tally()
+
+branch_ov_plot <- ggplot(branch_ov, aes(x=branch, y=n, fill=as.factor(accuracy)))+
+  geom_col() +
+  labs(caption = "Fig.2. Proportions of correct to incorrect participant answers.", fill="Accuracy") +
+  xlab("Category Branches") +
+  ylab("Count of participant's answers") +
+  scale_y_continuous(n.breaks=10) +
+  theme(axis.text.x = element_text(vjust = 1, hjust = 0.5, size = 7))
+
+branch_ov_plot
+```
+\newpage
+
+## Do reaction times and accuracies improve over trials?
+
+```{r}
+participant_paths <- exp_results[c("p_id", "accuracy", "react_time")] 
+
+acceptable_acc <- 0.85
+
+#creation of df per participant
+p_dfs <- hash()
+for(i in 1:p_num){
+  p_dfs[[paste("p",i, sep="")]] <- filter(participant_paths, p_id==i)
+}
+
+cumul_acc <- c(1:stim_num*0)
+cumul_acc_mean <- c(1:stim_num*0)
+cumul_rt <- c(1:stim_num*0)
+cumul_rt_mean <- c(1:stim_num*0)
+trials <- c(1:stim_num)
+
+participant_paths$trials <- sort(c((1:rows)%%stim_num)+1)
+
+for(i in 1:p_num){
+  part = paste("p",i, sep="")
+  part_df <- p_dfs[[part]]
+  for(j in 1:stim_num){
+    if(j>1){
+      cumul_acc[j] <- cumul_acc[j-1] + part_df$accuracy[j]
+      cumul_rt[j] <- cumul_rt[j-1] + part_df$react_time[j]
+    } else {
+      cumul_acc[j] <- part_df$accuracy[j]
+      cumul_rt[j] <- part_df$react_time[j]
+    }
+    cumul_acc_mean[j] <- cumul_acc[j]/j
+    cumul_rt_mean[j] <- cumul_rt[j]/j
+  }
+  p_dfs[[part]]$cumul_acc_mean <- cumul_acc_mean
+  p_dfs[[part]]$cumul_rt_mean <- cumul_rt_mean
+  
+}
+
+participant_acc_over_time <- ggplot(participant_paths, aes(x=trials, y=cumul_acc_mean))+
+  geom_hline(yintercept = acc_mean, color="#c0c0c0") 
+participant_rt_over_time <- ggplot()+
+  geom_hline(yintercept = rt_mean, color="#c0c0c0") 
+
+for(p in keys(p_dfs)){
+  pp <- p_dfs[[p]]
+  participant_acc_over_time <- participant_acc_over_time + 
+    geom_line(pp, mapping=aes(x=trials, y=cumul_acc_mean, color=p_id))
+  participant_rt_over_time <- participant_rt_over_time + 
+    geom_line(pp, mapping=aes(x=trials, y=cumul_rt_mean, color=p_id))
+}
+
+participant_acc_over_time <- participant_acc_over_time +
+  scale_y_continuous(name = "Mean accuracy", n.breaks = 5, labels = scales::percent) +
+  scale_x_continuous(name="Number of trials",n.breaks=15)+
+  theme(legend.position = 0, axis.title.x = element_blank(), axis.text.y = element_text(angle=0) ) +
+  coord_cartesian(ylim=c(0.55,1))
+
+participant_rt_over_time <- participant_rt_over_time +
+  scale_y_continuous(name = "Mean reaction time (ms)", n.breaks = 5) +
+  xlab("Trials over time") +
+  theme(panel.grid.major.x = element_line(size = 0.001),legend.position = 0, axis.text.y = element_text(angle=0))+
+  coord_cartesian(ylim=c(400,2000))
+
+
+grid.arrange(participant_acc_over_time, participant_rt_over_time)
+
+```
+
+# Mistake Analysis w.r.t. Participant
+
+This section is concerned with mistakes in the experiment from the participant point of view. It helps to determine the performance of participants. It can be used to find participants that should not be rewarded for not doing the job seriously (if it was a condition in the job description) or to reward bonuses (if there are any) to high-performing participants. The per-participant mean reaction times and accuracies are shown.
+
+```{r participant ov, echo=FALSE}
+participant_means <- exp_results %>%
+  group_by(p_id) %>%
+  summarize(mean_rt = mean(react_time), mean_acc = mean(accuracy))
+
+summary(participant_means[c('p_id', 'mean_rt', 'mean_acc')])
+```
+
+Figure 3 compares the mean accuracies (% on y axis) and reaction times (values in columns) of all participants. It only shows the number of the participant, their actual ID from the job must be looked up manually. Research shows that an accuracy of up to 85% is to be expected [1], anything below could be considered unserious. Look at the following evaluations to verify such a suspicion.
+
+```{r fig3, echo=FALSE, fig.height=2, fig.width=6.5}
+m <- mean(participant_means$mean_acc)
+
+acc_by_participant <- ggplot(participant_means, 
+                             aes(x=reorder(p_id, desc(-mean_acc)), y=mean_acc,desc()))+
+  geom_point() +
+  xlab("Participant number") +
+  scale_y_continuous("Mean Accuracy", labels = scales::percent, n.breaks = 8)+
+  geom_hline(yintercept = m, color="#c0c0c0")+
+  annotate("text", x='2', y=m+0.005, label=paste(round(m, 3)*100,"%"), color="#c0c0c0")+
+  theme(panel.grid.major.x = element_line(colour="#f4f0ec"), axis.text.y = element_text(angle=0))
+  
+acc_distribution <- ggplot(participant_means, aes(x=mean_acc))+
+  geom_histogram(bins=5)+
+  scale_x_continuous(name = "Mean Accuracy",labels=scales::percent)+
+  theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank())+
+  geom_vline(xintercept=acc_mean)
+
+
+grid.arrange(acc_by_participant, acc_distribution, nrow=1, widths=c(5.5,1.5))
+
+```
+
+The following plot (Fig.4) shows box plots for participant's reaction times on stimuli. It is restricted to those participants that show a sub-standard accuracy (<85%). If reaction times are all extremely short, then the participant did not do the task appropriately. Generally, the subordinate reaction times should be slower than the rest. If the range of reaction times is great, then the participant might have struggled with the category names. Outliers above the 3rd quantile indicate that the participant got stuck on those stimuli / thought longer about them. Outliers below the 1st quantile are answers given too fast to have even registered the stimulus.
+
+```{r fig4, echo=FALSE}
+low_acc_participants <- participant_means %>%
+  filter(mean_acc < 0.85) %>%
+  select(p_id)
+
+low_acc_participants <- as.numeric(as.list(low_acc_participants$p_id))
+
+low_acc_results <- exp_results %>%
+  filter(as.numeric(p_id) %in% unlist(low_acc_participants)) %>%
+  mutate(p_id = as.factor(as.numeric(p_id)))
+  
+low_acc_boxplot <- ggplot(low_acc_results, aes(x=react_time/1000, y=lvl))+
+  geom_boxplot() +
+  facet_wrap(low_acc_results$p_id, nrow=4) +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank()) +
+  labs(caption = "Fig.4. Box plots for reaction times of low accuracy participants.")+
+  xlab("Reaction Time (seconds)")+
+  scale_x_continuous(n.breaks = 10)
+
+low_acc_boxplot
+
+```
+
+The final plot (Fig.5) of this section highlights how participants individually experienced the experiment over time. Each path represents one participant's mistake count as time moves on. Time that passed equally fast for each participant (e.g. showing the stimulus, moving on to the next) is not considered. Only time that passed while the participant was able to answer is considered. Thus, this plot does not show moments where participants took a break during the experiment's break-time screens.
+
+```{r echo=FALSE, fig.height=4, fig.width=6.5}
+participant_paths <- exp_results[c("p_id", "accuracy", "react_time")]
+acceptable_num_mistakes <- 0.15*stim_num
+
+cumul_err<- c(1:rows*0)
+cumul_rt <- c(1:rows*0)
+for(i in 0:(p_num-1)){
+  err_sum = 0
+  rt_sum = 0
+  for(j in (i*stim_num):((i*stim_num)+(stim_num-1))){
+    err_sum <- abs(participant_paths$accuracy[j+1]-1)+err_sum
+    rt_sum <- participant_paths$react_time[j+1]+rt_sum
+    cumul_err[j+1] <- err_sum
+    cumul_rt[j+1] <- rt_sum
+  }
+}
+
+#accumulated error count
+participant_paths$cumul_err <- cumul_err/stim_num
+
+#saved as number in minutes
+participant_paths$cumul_rt <- cumul_rt/(1000*60)
+
+#creation of df per participant
+p_dfs <- hash()
+for(i in 1:p_num){
+  p_dfs[[paste("p",i, sep="")]] <- filter(participant_paths, p_id==i)
+}
+
+#This could have been combined with the previous loop, but this way some paths could be selectively ignored when creating the plot
+participant_mistake_over_time <- ggplot(participant_paths, aes(x=cumul_rt, 
+                                                               y=cumul_err))+
+  geom_smooth(method=lm, level=0.99999)
+
+for(p in keys(p_dfs)){
+  pp <- p_dfs[[p]]
+  lab_x = pp$cumul_rt[length(pp$cumul_rt)]
+  lab_y = pp$cumul_err[length(pp$cumul_err)]
+  participant_mistake_over_time <- participant_mistake_over_time + 
+    geom_line(pp, mapping=aes(x=cumul_rt, y=cumul_err, color=p_id)) +
+    annotate(geom = "text", x = lab_x, y = lab_y, label=p, size=3)
+}
+
+participant_mistake_over_time <- participant_mistake_over_time +
+  scale_y_continuous(name = "Error rate", n.breaks =9, labels=scales::percent) +
+  scale_x_continuous(name = "Time spent on stimuli (minutes)", n.breaks = 10) +
+  theme(panel.grid.major.x = element_line(size = 0.001),
+        legend.position = 0, axis.text.y = element_text(angle = 0))
+
+grid.arrange(participant_mistake_over_time, participant_acc_over_time, heights=c(5,1.5))
+```
+
+These information should be enough to get a good idea why some participants did better or worse than others. It could also already indicate a possible issue with the experiment procedure or content. The next section will take a closer look at mistakes with respect to the stimuli and their inherent qualities.
+
+\newpage
+# Mistake Analysis w.r.t. Stimulus
+
+In the following overview (Fig.6), you can see the percentages of mistakes to correct answers of all stimuli. If all participants have seen the stimuli in the same order, then the columns will be in order of how stimuli have been originally ordered.
+
+```{r echo=FALSE, fig.height=2, fig.width=7}
+stimOV <- exp_results %>%
+  mutate(stim_index = index%%stim_num) %>%
+  group_by(stim_index,stimulus,accuracy) %>%
+  tally()
+
+mistake_overview <- ggplot(data=stimOV, aes(x=reorder(stimulus, desc(-accuracy)), y=n, fill=as.factor(accuracy))) +
+  geom_col(position = "fill", width =1) +
+  scale_y_continuous(labels = scales::percent) +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(),
+        legend.position = 0)+
+  xlab("All stimuli") +
+  ylab("Ratio")
+
+stimOV2 <- exp_results %>%
+  group_by(stimulus) %>%
+  summarise(accuracy = mean(accuracy))
+
+mistake_overview2 <- ggplot(data=stimOV2, aes(x=accuracy)) +
+  geom_histogram(bins=9) +
+  scale_x_continuous(labels = scales::percent) +
+  xlab("Accuracy")+
+  ylab("Count")+
+  labs(fill="Accuracy")
+  
+grid.arrange(mistake_overview, mistake_overview2, widths=c(5,2))
+
+```
+
+
+The following sections try to shine light on what caused mistakes with rights to one specific component or aspect of the stimulus.
+
+\newpage
+## Stimuli
+
+Figure 7 shows the stimuli (image + label) that received the most erroneous answers. The cutoff is made at 50%, when half the participants had a mistake.
+
+```{r echo=FALSE, fig.height=6, fig.width=6.5, message=FALSE}
+mistake_by_stim <- exp_results %>%
+  group_by(stimulus, lvl) %>%
+  summarise(error = (1-mean(accuracy))) %>%
+  filter(error>0.5)
+
+m_by_stim_plot <- ggplot(mistake_by_stim, aes(x=error, y=reorder(stimulus, desc(-error)), fill=lvl)) +
+  geom_col() +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank(),
+        panel.grid.major.x = element_line(size=0.5),
+        panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
+  scale_x_continuous(labels=scales::percent) +
+  labs(caption="Fig.7. High error Stimuli.", fill="Category \nlevel") +
+  xlab("Percentage of mistakes over all participants")
+
+
+m_by_stim_plot
+
+```
+\newpage
+
+## Image
+
+Figure 8 shows the images that received the most erroneous answers. The cutoff is made at 15%.
+
+```{r echo=FALSE, fig.height=4, fig.width=6.5, message=FALSE}
+mistake_by_img <- exp_results %>%
+  group_by(img) %>%
+  summarise(error = (1-mean(accuracy)))%>%
+  filter(error>0.15)
+
+m_by_img_plot <- ggplot(mistake_by_img, aes(x=error, y=reorder(img, desc(-error)))) +
+  geom_col() +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank(),
+        panel.grid.major.x = element_line(size=0.5),
+        panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
+  scale_x_continuous(labels=scales::percent) +
+  labs(caption="Fig.8. High error Images.") +
+  xlab("Percentage of mistakes over all participants")
+
+m_by_img_plot
+
+```
+\newpage
+
+## Category Name
+
+Figure 9 shows the category names that received the most erroneous answers. The cutoff is made at 15%.
+
+```{r echo=FALSE, fig.height=6, fig.width=6.5, message=FALSE}
+mistake_by_name <- exp_results %>%
+  group_by(c_name, lvl) %>%
+  summarise(error = (1-mean(accuracy)))%>%
+  filter(error>0.15)
+
+m_by_name_plot <- ggplot(mistake_by_name, aes(x=error, y=reorder(c_name, desc(-error))), group=lvl) +
+  geom_col(aes(fill=lvl)) +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank(),
+        panel.grid.major.x = element_line(size=0.5),
+        panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0"),
+        legend.position = 0) +
+  scale_x_continuous(labels=scales::percent) +
+  labs(caption="Fig.9. High error Category names. Colors highlight the category level.") +
+  xlab("Percentage of mistakes over all participants") 
+
+m_by_name_plot
+
+```
+
+\newpage
+
+## Branch
+
+Figure 10 shows the mistake percentage per branch. The columns are colored to highlight the share of each category level within the respective branches.
+
+```{r echo=FALSE, message=FALSE}
+mistake_by_branch <- exp_results %>%
+  group_by(branch, lvl) %>%
+  summarise(error = (1-mean(accuracy)))
+
+m_by_branch_plot <- ggplot(mistake_by_branch, aes(x=error, y=reorder(branch, desc(-error))), group=lvl) +
+  geom_col(aes(fill=lvl)) +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank(),
+        panel.grid.major.x = element_line(size=0.5),
+        panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
+  scale_x_continuous(labels=scales::percent) +
+  labs(caption="Fig.10. Error rates of individual branches.", fill="Category\nLevel") +
+  xlab("Percentage of mistakes over all participants") +
+  facet_wrap(mistake_by_branch$lvl)
+
+m_by_branch_plot
+
+```
+
+\newpage
+
+## Level
+
+Figure 11 shows the mistake percentage per category level. The columns are colored to highlight the share of both stimulus types. 
+
+```{r echo=FALSE, message=FALSE}
+mistake_by_lvl <- exp_results %>%
+  group_by(lvl, stim_type) %>%
+  summarise(error = (1-mean(accuracy)))
+
+m_by_lvl_plot <- ggplot(mistake_by_lvl, 
+                        aes(x=error, y=reorder(lvl, desc(-error))), group=stim_type) +
+  geom_col(aes(fill=stim_type)) +
+  theme(axis.text.y = element_text(angle=0),
+        axis.title.y = element_blank(),
+        panel.grid.major.x = element_line(size=0.5),
+        panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
+  scale_x_continuous(labels=scales::percent) +
+  labs(caption="Fig.11. Error rates of category levels.", fill="Stimulus\nType") +
+  xlab("Percentage of mistakes over all participants")  +
+  facet_wrap(mistake_by_lvl$stim_type)
+
+m_by_lvl_plot
+
+```
+
+\newpage
+
+## Stimulus Type
+
+Figure 12 shows a pie chart of True/False stimulus type's correct and incorrect answer rates.
+
+```{r echo=FALSE, message=FALSE}
+mistake_by_stype <- exp_results %>%
+  mutate(accuracy=as.factor(accuracy))%>%
+  group_by(stim_type, accuracy) %>%
+  summarize(perc = round((n()/rows),2)*100)%>%
+  mutate(case=paste(stim_type,ifelse(accuracy==1,"positive","negative")))
+
+m_by_stype_plot <- ggplot(mistake_by_stype, 
+                        aes(x="",y=perc, fill=case)) +
+  geom_bar(stat="identity", width=1, color="black") +
+  coord_polar("y", start=0) +
+  labs(caption="Fig.12. Error rates of stimulus types.", fill="Case")+
+  geom_text(aes(label = paste0(perc, "%")), position = position_stack(vjust=0.5)) +
+  labs(x = NULL, y = NULL, fill = NULL)+
+  theme(legend.position = "top")
+
+m_by_stype_plot
+
+```
+\newpage
+
+# Component significance analysis in terms of error rates
+
+```{r message=FALSE, include=FALSE}
+aov_data <- exp_results %>%
+  group_by(branch, lvl, c_name, img, stimulus, stim_type) %>%
+  summarize(err=(1-mean(accuracy)))
+
+```
+
+This section calculates the one-way ANOVA and two-way ANOVA of each factor (stimulus components) to determine significant differences between groups. Then, they are pitted against each other in an AIC table to determine the best-fitting statistical model among the ANOVA models.
+
+## One-Way
+
+```{r}
+aov_branch <- aov(err ~ branch, data=aov_data)
+aov_lvl <- aov(err ~ lvl, data=aov_data)
+aov_c_name <- aov(err ~ c_name, data=aov_data)
+aov_img <- aov(err ~ img, data=aov_data)
+aov_stim <- aov(err ~ stimulus, data=aov_data)
+aov_stype <- aov(err ~ stim_type, data=aov_data)
+
+```
+
+### Branch
+
+```{r echo=FALSE}
+summary.aov(aov_branch)
+```
+
+### Level
+
+```{r echo=FALSE}
+summary.aov(aov_lvl)
+```
+
+### Category name
+
+```{r echo=FALSE}
+summary.aov(aov_c_name)
+```
+
+### Image
+
+```{r echo=FALSE}
+summary.aov(aov_img)
+```
+
+### Stimulus
+
+```{r echo=FALSE}
+summary.aov(aov_stim)
+```
+
+### Stimulus type
+
+```{r echo=FALSE}
+summary.aov(aov_stype)
+```
+
+### AIC
+```{r echo=FALSE, message=FALSE}
+library(AICcmodavg)
+
+candidates <- list(aov_branch,
+                  aov_lvl,
+                  aov_c_name,
+                  aov_img,
+                  aov_stim,
+                  aov_stype)
+nameset <- c("Branch", "Level", "Cat. Name", "Image", "Stimulus", "Stim. Type")
+
+# AIC = 2K – 2ln(L) (K= n# model parameter, L = likelihood)
+aictab(candidates, nameset, sort=TRUE)
+
+```
+
+\newpage
+
+## Two-way
+In the first iteration of this evaluation, the models with the most significant differences within their groups were those for stimulus type, category level, category name and branch (lower significance). The AIC table determined, in this order, that the ANOVA models for category level, stimulus type and branch showed the best fit. The following subsections compare ANOVA of pairs and triples of these components in another AIC table.
+```{r, message=FALSE}
+aov_lvl_type <- aov(err ~ lvl + stim_type, data=aov_data)
+aov_lvl_branch <- aov(err ~ lvl + branch, data=aov_data)
+aov_type_branch <- aov(err ~ stim_type + branch, data=aov_data)
+aov_lvl_type_branch <- aov(err ~ lvl + stim_type + branch, data=aov_data)
+```
+
+### Level + Type
+
+```{r echo=FALSE}
+summary.aov(aov_lvl_type)
+
+```
+
+
+### Level + Branch
+
+```{r echo=FALSE, message=FALSE}
+summary.aov(aov_lvl_branch)
+
+```
+
+### Type + Branch
+
+```{r echo=FALSE, message=FALSE}
+summary.aov(aov_type_branch)
+
+```
+
+### Level + Type + Branch
+
+```{r echo=FALSE, message=FALSE}
+summary.aov(aov_lvl_type_branch)
+
+```
+
+### AIC
+```{r echo=FALSE, message=FALSE}
+candidates2 <- list(aov_lvl_type,
+                    aov_lvl_branch,
+                    aov_type_branch,
+                    aov_lvl_type_branch)
+nameset2 <- c("Level & Type", "Level & Branch", "Type & Branch", "Level & Type & Branch")
+
+aictab(candidates2, nameset2, sort=TRUE)
+
+```
+
+A Tukey test can be used to measure the differences between group-member pairings.
+
+```{r}
+tukey <- TukeyHSD(aov_lvl_branch)
+
+print(tukey)
+plot(tukey, sub="Fig.13. Tukey Confidence intervals for level and branch.")
+```
+\newpage
+
+# Analysis of reaction times
+
+This section is concerned with the reaction times recorded during the experiment. The per-participant reaction times have already been illustrated in Fig.3.
+
+## Overview
+
+To give an overview, Fig.14 illustrates the distribution of stimuli over the range of reaction times. The columns for the three distinct category levels sit next to each other to facilitate the identification of possible differences. Fig.15 shows box plots for reaction times within the three category levels, one plot per stimulus type. Fig.15 is also a visual representation of table 1, which is the same table Rosch[2] created.
+
+```{r echo=FALSE, message=FALSE}
+rtOV <- exp_results %>%
+  group_by(stimulus, lvl, stim_type) %>%
+  summarize(rt_mean = mean(react_time))
+
+rtOV_viz <- ggplot(rtOV, aes(x=rt_mean, fill=lvl))+
+  geom_histogram(bins = 15, position="dodge") +
+  ylab("Stimulus counts") +
+  xlab("Reaction Time (msec)")+
+  labs(caption="Fig.14. Distribution of stimuli frequencies.", fill="Category\nLevel")
+
+rtOV_viz
+```
+
+```{r echo=FALSE, message=FALSE}
+rt_box <- ggplot(rtOV, aes(x=rt_mean, fill=lvl))+
+  geom_boxplot()+
+  facet_grid(rtOV$stim_type)+
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.x = element_line(),
+        panel.grid.minor.x = element_line(color="#c0c0c0", size=0.5))+
+  scale_x_continuous(n.breaks = 14) +
+  labs(fill="", 
+       caption="Fig.15 Boxplot representation of reaction time means \nover all stimuli") +
+  xlab("Reaction Time (msec)")
+
+rt_box
+
+```
+
+```{r Rosch table, echo=FALSE, message=FALSE, warning=FALSE}
+library(reshape2)
+
+rtable <- exp_results %>%
+  group_by(lvl, stim_type) %>%
+  summarize(rt_mean = mean(react_time)) 
+
+rmatrix <- matrix(c(1:6),nrow = 2, ncol=3,dimnames = list(c("F", "T"),c("Superordinate", "Basic Level", "Subordinate")))
+
+for(i in 1:6){
+  lev <- rtable$lvl[i]
+  typ <- rtable$stim_type[i]
+  val <- rtable$rt_mean[i]
+  
+  if (lev == "hypernym" & typ == TRUE){
+    rmatrix['T',"Superordinate"] <- val
+  } else if(lev == "hypernym" & typ == FALSE){
+    rmatrix['F',"Superordinate"] <- val
+  } else if(lev == "bl" & typ == TRUE){
+    rmatrix['T',"Basic Level"] <- val
+  } else if(lev == "bl" & typ == FALSE){
+    rmatrix['F',"Basic Level"] <- val
+  } else if(lev == "hyponym" & typ == TRUE){
+    rmatrix['T',"Subordinate"] <- val
+  } else if(lev == "hyponym" & typ == FALSE){
+    rmatrix['F',"Subordinate"] <- val
+  }
+}
+
+print(rmatrix)
+```
+Table 1.: Matrix showing the mean reaction times at different category levels and stimuli types.
+
+## Analysis
+
+This section applies the two-way ANOVA model on the measurements. The category level (between-subject fixed effect) and the category names (random variable) are used as independent variables.
+
+```{r message=FALSE, include=FALSE}
+rt_data <- exp_results %>%
+  group_by(lvl, c_name, stim_type, branch, stimulus) %>%
+  summarise(rt_mean = mean(react_time)) %>%
+  mutate(c_name = as.factor(c_name))
+  
+
+r_true <- rt_data %>%
+  filter(stim_type == TRUE)
+
+r_false <- rt_data %>%
+  filter(stim_type == FALSE)
+
+roschAOV_true <- aov(rt_mean ~ lvl+c_name, data = r_true)
+roschAOV_false <- aov(rt_mean ~ lvl+c_name, data = r_false)
+
+tukey_r_true <- TukeyHSD(roschAOV_true, which = 'lvl')
+tukey_r_false <- TukeyHSD(roschAOV_false, which = 'lvl')
+
+```
+
+### True type stimuli
+
+Anova summary:
+```{r}
+summary.aov(roschAOV_true)
+```
+
+Tukey test:
+```{r}
+tukey_r_true
+
+plot(tukey_r_true)
+```
+
+### False type stimuli
+
+Anova summary:
+```{r}
+summary.aov(roschAOV_false)
+```
+
+Tukey test:
+```{r}
+tukey_r_false
+
+plot(tukey_r_false)
+```
+
+\newpage
+
+# B.L. Determination
+
+Ultimately, the experiment is conducted to determine the basic level category name from a selection of three candidates. These triples form a path through one of the WordNet branches. We only consider a single element in this path basic level. Basic levelness can only be infered from reaction times of the true type stimuli. The false type stimuli reactions say more about the image than about the category names.
+
+## Simple rating
+
+In this section, we see a simple implementation to declare which category name from the triple is the basic level (super- and subordinates can be inferred). For each triple, the category name with the fastest mean reaction time is chosen as basic level. Below, you can see the top nine results of the evaluation. Thereafter follows a confusion matrix of expected and predicted levels.
+
+```{r echo=FALSE, message=FALSE, warning=TRUE}
+df_for_rating <- exp_results %>%
+  filter(stim_type == TRUE) %>%
+  group_by(lvl, c_name, branch, img) %>%
+  summarise(rt_mean = mean(react_time), acc_mean = mean(accuracy)) %>%
+  mutate(lvl = ifelse(lvl=='hyponym', 'sub', ifelse(lvl=='hypernym', 'super', 'bl')))
+
+all_img <- unique(df_for_rating$img)
+df_rated_simple <- data.frame()
+
+for (imag in all_img){
+  triple <- df_for_rating %>%
+    filter(img == imag)
+  blvl <- triple[which(triple$rt_mean == min(triple$rt_mean)),]
+  triple <- triple[which(triple$rt_mean != min(triple$rt_mean)),]
+  blvl$proj_lvl <- 'bl'
+  
+  if(blvl$lvl == 'super'){
+    triple$proj_lvl <- 'sub'
+    df_rated_simple <- rbind(df_rated_simple, blvl)
+    df_rated_simple <- rbind(df_rated_simple, triple)
+    
+  } else if(blvl$lvl == 'bl'){
+    sublvl <- triple[which(triple$lvl == "sub"),]
+    sublvl$proj_lvl <- "sub"
+    suplvl <- triple[which(triple$lvl == "super"),]
+    suplvl$proj_lvl <- "super"
+    df_rated_simple <- rbind(df_rated_simple, suplvl)
+    df_rated_simple <- rbind(df_rated_simple, blvl)
+    df_rated_simple <- rbind(df_rated_simple, sublvl)
+  } else{
+    triple$proj_lvl <- 'super'
+    df_rated_simple <- rbind(df_rated_simple, blvl)
+    df_rated_simple <- rbind(df_rated_simple, triple)
+  }
+  
+}
+
+df_rated_simple$lvl <- as.factor(df_rated_simple$lvl)
+df_rated_simple$proj_lvl <- as.factor(df_rated_simple$proj_lvl)
+
+head(df_rated_simple[c("c_name", "lvl", "proj_lvl")], n = 9)
+
+```
+
+```{r echo=FALSE, message=FALSE}
+library(caret)
+
+con_mat_bl <- confusionMatrix(data=df_rated_simple$proj_lvl, reference = df_rated_simple$lvl)
+con_mat_bl
+```
+
+## Advanced rating
+
+BL annotation could range from 0-1
+0, not basic level
+1, surely basic level
+anything inbetween gives estimate to bl likelihood
+
+Steps:
+* prepare rating df blueprint > | synset | blness | accuracy |
+* DF per 'annotator', create hypothetical binary annotation (bl, or not) 
+ - select fastest times in both true/false type triples
+ - is same category + accurate: annotate with 1
+ - is different categories for fastest times + accurate: both get 0.5
+ - is fastest time inaccurate, select next fastest time, give 0.5
+ - two fastest times inaccurate, select remaining, give 0.3
+ - all inaccurate, select superordinate, give 0.1
+
+* Create new GOLD STANDARD data frame (per branch) like hollink (compatibility):
+  -> | synset | glossary | depth in hierarchy | direct hypernyms | direct hyponyms | accuracy | blness |
+
+* Per synset, combine blness measure (mean?), add mean accuracy
+* I would still be interested in an inter-annotator measure that reveals groups of 'similarly' rating annotators. Could use to split gold standard in two w.r.t. groups of ppl.
+
+
+To do in R:
+ - per annotator df export
+ 
+The rest happens in Python jupyter notebook.
+
+```{r }
+for (p in 1:p_num){
+  part_df <- exp_results %>%
+    filter(part_id == p) %>%
+    select(branch, c_name, stim_type, accuracy, react_time)
+  
+  write_csv(part_df, paste("p", p,"_reaction_times.csv", sep=""))
+}
+
+
+```
+
+
+
+
+
+
+
+
+
+\newpage
+
+# References
+
+[1] Gagné, N., & Franzen, L., 2021, https://doi.org/10.31234/osf.io/nt67j
+
+[2] E. Rosch, C. B. Mervis, W. D. Gray, D. M. Johnson, and P. Boyes-Braem,
+“Basic objects in natural categories,” Cognitive Psychology, vol. 8, no. 3,
+pp. 382–439, 1976.

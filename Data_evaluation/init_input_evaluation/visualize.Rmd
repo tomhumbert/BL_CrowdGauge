@@ -1,0 +1,210 @@
+---
+title: "Gold standard inspection"
+output:
+  pdf_document:
+    fig_caption: yes
+    toc: True
+  html_document:
+    fig_caption: yes
+    fig_width: 8
+---
+
+# Visualizing the data
+```{r viz_func, message=FALSE, warning=FALSE}
+tree_viz_df <- function(synsets, synonyms, ancestors, judg1, judg2, judg3, depth, maxdepth){
+  #first third of box
+  y <- c()
+  x <- c()
+  ymin <- c()
+  ymax <- c()
+
+  x1min <- c()
+  x1max <- c()
+  z1 <- c()
+  #second third
+  x2min <- c()
+  x2max <- c()
+  z2 <- c()
+  #last third
+  x3min <- c()
+  x3max <- c()
+  z3 <- c()
+  #labels and lines
+  label <- c()
+  label_raw <- c()
+  linedest_x <- c()
+  linedest_y <- c()
+  
+  for (i in 0:(maxdepth-1)){
+    counter <- 0
+    depth_len <- length(which(depth==i+1)) 
+    for (j in 0:(length(depth)-1)){
+      if (i+1 == depth[j+1]){
+        
+        x <- append(x, i)
+        x1min <- append(x1min, i-0.4)
+        x1max <- append(x1max, i-0.13)
+        z1 <- append(z1, judg1[j+1])
+        
+        x2min <- append(x2min, i-0.13)
+        x2max <- append(x2max, i+0.13)
+        z2 <- append(z2, judg2[j+1])
+        
+        x3min <- append(x3min, i+0.13)
+        x3max <- append(x3max, i+0.4)
+        z3 <- append(z3, judg3[j+1])
+        
+        new_label <- str_to_sentence(
+          str_replace_all(
+            str_split(
+              synonyms[j+1], " ")[[1]][1], "_", " "))
+        label <- append(label, new_label)
+        dupli_bool <- any(synsets[j+1] == label_raw)
+        label_raw <- append(label_raw, synsets[j+1])
+        
+        if(i == 0){
+          linedest_x <- append(linedest_x, 0)
+          linedest_y <- append(linedest_y, 0)
+          
+          y <- append(y, 0)
+          ymin <- append(ymin, -0.45)
+          ymax <- append(ymax, 0.45)
+        }
+        else{
+          ancest_pos <- max(which(match(label_raw,c(ancestors[j+1]))==1))
+          ancest_y <- y[ancest_pos]
+          ancest_x <- x3max[ancest_pos]
+          linedest_x <- append(linedest_x, ancest_x)
+          linedest_y <- append(linedest_y, ancest_y)
+          
+          if(dupli_bool){
+            dupli_pos <- which(match(label_raw,c(synsets[j+1]))==1)[1]
+            y <- append(y, y[dupli_pos])
+            ymin <- append(ymin, ymin[dupli_pos])
+            ymax <- append(ymax, ymax[dupli_pos])
+          }
+          else {
+            y <- append(y, (depth_len/2)-counter)
+            ymin <- append(ymin, (depth_len/2)-counter-0.45)
+            ymax <- append(ymax, (depth_len/2)-counter+0.45)
+          }
+          
+        }
+        counter <- counter +1
+      }  
+    }  
+  }
+  tree_df <- data.frame(
+    y=y,
+    x=x,
+    
+    ymin=ymin,
+    ymax=ymax,
+    label=label,
+    xend= linedest_x,
+    yend= linedest_y,
+    
+    x1min=x1min,
+    x1max=x1max,
+    z1=z1,
+    
+    x2min=x2min,
+    x2max=x2max,
+    z2=z2,
+    
+    x3min=x3min,
+    x3max=x3max,
+    z3=z3
+    )
+  tree_df
+}
+
+make_tree_viz <- function(tree_data){
+  tree <- ggplot(tree_data) +
+  geom_segment(aes(x=x1min,
+                   y=y,
+                   xend=xend, 
+                   yend=yend, 
+                   color=z3)) +
+  geom_rect(aes(xmin=x1min, 
+                xmax=x1max, 
+                ymin=ymin, 
+                ymax=ymax, 
+                fill = z1), 
+            colour = "white") +
+  geom_rect(aes(xmin=x2min, 
+                xmax=x2max, 
+                ymin=ymin, 
+                ymax=ymax, 
+                fill = z2), 
+            colour = "white") +
+  geom_rect(aes(xmin=x3min, 
+                xmax=x3max, 
+                ymin=ymin, 
+                ymax=ymax, 
+                fill = z3), 
+            colour = "white") +
+  theme(axis.ticks.y = NULL, 
+        axis.ticks.x = NULL, 
+        legend.position = "top", 
+        panel.grid = NULL, 
+        line = NULL, 
+        axis.line = element_blank(), 
+        title = NULL, 
+        panel.grid.major = NULL, 
+        panel.background = NULL, 
+        panel.grid.minor = NULL) +
+  geom_text(aes(label=label, 
+                x=x, 
+                y=y, 
+                fontface="bold")) 
+
+  
+  tree
+}
+```
+
+```{r fruit_viz, fig.height=20, fig.width=10, message=FALSE, warning=FALSE}
+fruit_tree_data <- tree_viz_df(
+  bl_fruits$synsets, 
+  bl_fruits$synonyms, 
+  bl_fruits$ancestors, 
+  bl_fruits$judgmt_a1, 
+  bl_fruits$judgmt_a2, 
+  bl_fruits$judgmt_a3, 
+  bl_fruits$tree_depth, 
+  5)
+
+fruit_tree <- make_tree_viz(fruit_tree_data)
+fruit_tree
+```
+
+```{r instru_viz, fig.height=20, fig.width=10, message=FALSE, warning=FALSE}
+instrument_tree_data <- tree_viz_df(
+  bl_instruments_new$synsets, 
+  bl_instruments_new$synonyms, 
+  bl_instruments_new$ancestors, 
+  bl_instruments_new$judgmt_a1, 
+  bl_instruments_new$judgmt_a2, 
+  bl_instruments_new$judgmt_a3, 
+  bl_instruments_new$tree_depth, 
+  9)
+
+instrument_tree <- make_tree_viz(instrument_tree_data)
+instrument_tree
+```
+
+```{r tool_viz, fig.height=20, fig.width=10, message=FALSE, warning=FALSE}
+tool_tree_data <- tree_viz_df(
+  bl_tools$synsets, 
+  bl_tools$synonyms, 
+  bl_tools$ancestors, 
+  bl_tools$judgmt_a1, 
+  bl_tools$judgmt_a2, 
+  bl_tools$judgmt_a3, 
+  bl_tools$tree_depth, 
+  7)
+
+tool_tree <- make_tree_viz(tool_tree_data)
+tool_tree
+```

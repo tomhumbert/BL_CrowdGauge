@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+sweat_pants_n_01 "Clothing" "clothing_n_01 hypernym sweat_pants_n_01 True" 1
+carpenters_hammer_n_01 "Granadilla" "granadilla_n_04 hyponym carpenters_hammer_n_01 False" 2
+crescent_wrench_n_01 "Crescent wrench" "crescent_wrench_n_01 hyponym crescent_wrench_n_01 True" 1
+turtleneck_n_01 "Furniture" "furniture_n_01 hypernym turtleneck_n_01 False" 2
+musette_n_01 "Phillips screwdriver" "phillips_screwdriver_n_01 hyponym musette_n_01 False" 2
+cherimoya_n_02 "Sweater" "sweater_n_01 bl cherimoya_n_02 False" 2
+clementine_n_02 "Throne" "throne_n_01 bl clementine_n_02 False" 2
+uplift_n_02 "Clothing" "clothing_n_01 hypernym uplift_n_02 True" 1
+bow_tie_n_01 "Bow tie" "bow_tie_n_01 hyponym bow_tie_n_01 True" 1
+sultana_n_01 "Blazer" "blazer_n_01 hyponym sultana_n_01 False" 2
+bikini_n_02 "Swimsuit" "swimsuit_n_01 bl bikini_n_02 True" 1
+damson_n_01 "Edible fruit" "edible_fruit_n_01 hypernym damson_n_01 True" 1
+raincoat_n_01 "Hand tool" "hand_tool_n_01 hypernym raincoat_n_01 False" 2
+muffler_n_02 "Wrench" "wrench_n_03 bl muffler_n_02 False" 2
+armoire_n_01 "Armoire" "armoire_n_01 hyponym armoire_n_01 True" 1
+turtleneck_n_01 "Sweater" "sweater_n_01 bl turtleneck_n_01 True" 1
+pew_n_01 "Pew" "pew_n_01 hyponym pew_n_01 True" 1
+bradawl_n_01 "Hand tool" "hand_tool_n_01 hypernym bradawl_n_01 True" 1
+bosc_n_01 "Edible fruit" "edible_fruit_n_01 hypernym bosc_n_01 True" 1
+putty_knife_n_01 "Musical instrument" "musical_instrument_n_01 hypernym putty_knife_n_01 False" 2

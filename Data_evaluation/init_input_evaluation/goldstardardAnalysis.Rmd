@@ -1,0 +1,526 @@
+---
+title: "Gold standard inspection"
+output:
+  pdf_document:
+    fig_caption: yes
+    toc: True
+  html_document:
+    fig_caption: yes
+    fig_width: 8
+---
+
+# Inspection of the existing data from Hollink et al.
+
+Loading libraries
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(ggplot2)
+```
+
+## Datasets from Hollink et al.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+annotator1_tools <- read_delim("handtool_labelled.csv", col_names =
+                                 c('lvl1_synset','lvl2_synset','lvl3_synset',
+                                  'lvl4_synset','lvl5_synset','lvl6_synset',
+                                  'isBasic','isFamiliar','isUnsure','note',
+                                  'inHistWords','note2'), skip=1, delim=';')
+
+annotator1_fruits <- read_delim("ediblefruit_labelled.csv", col_names =
+                                  c('lvl1_synset','lvl2_synset','lvl3_synset',
+                                  'lvl4_synset','lvl5_synset','lvl6_synset',
+                                  'isBasic','isFamiliar','isUnsure','note',
+                                  'inHistWords'), skip=1, delim=';')
+
+annotator1_instruments <- read_delim("musicalinstrument_labelled.csv", col_names =
+                                  c('synonyms','glossary','lvl1_synset',
+                                  'lvl2_synset','lvl3_synset','lvl4_synset',
+                                  'lvl5_synset','lvl6_synset','lvl7_synset',
+                                  'lvl8_synset','isBasic','isFamiliar','isUnsure',
+                                  'notes'), skip=1, delim=';')
+
+annotator2_tools <- read_delim("handtool_a2.csv",
+                               col_names=c('synonyms','glossary','lvl1_synset',
+                                  'lvl2_synset','lvl3_synset','lvl4_synset',
+                                  'lvl5_synset','lvl6_synset','isBasic','origin',
+                                  'isFamiliar','isUnsure','notes'), skip=1, delim=',')
+
+annotator3_tools <- read_delim("handtool_a3.csv",
+                               col_names=c('synonyms','glossary','lvl1_synset',
+                                  'lvl2_synset','lvl3_synset','lvl4_synset',
+                                  'lvl5_synset','lvl6_synset','isBasic','isFamiliar',
+                                  'isUnsure','notes'), skip=1, delim=',')
+```
+
+### Cleaning up dataframe layout
+* reduce hierarchy lvl columns to 2 dim
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Function to create new columns for synsets
+red_lvls <- function(ds, synlen = 6, dflen){
+  ds_copy <- ds
+  synsets <- c()
+  tree_depth <- c() 
+  tree <- c("","","","","","","","")
+  ancestors <- c()
+  
+  for (i in 1:length(ds$lvl1_synset)){
+    if(!is.na(ds[["lvl1_synset"]][i])){
+      syn <- toString(ds[["lvl1_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 1)
+  
+      tree[1] <- syn
+      ancestors <- append(ancestors, "root")
+    }
+    else if(!is.na(ds[["lvl2_synset"]][i])){
+      syn <- toString(ds[["lvl2_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 2)
+      
+      tree[2] <- syn
+      ancestors <- append(ancestors, tree[1])
+      
+    }
+    else if(!is.na(ds[["lvl3_synset"]][i])){
+      syn <- toString(ds[["lvl3_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 3)
+      
+      tree[3] <- syn
+      ancestors <- append(ancestors, tree[2])
+    }
+    else if(!is.na(ds[["lvl4_synset"]][i])){
+      syn <- toString(ds[["lvl4_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 4)
+      
+      tree[4] <- syn
+      ancestors <- append(ancestors, tree[3])
+    }
+    else if(!is.na(ds[["lvl5_synset"]][i])){
+      syn <- toString(ds[["lvl5_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 5)
+      
+      tree[5] <- syn
+      ancestors <- append(ancestors, tree[4])
+    }
+    else if(!is.na(ds[["lvl6_synset"]][i])){
+      syn <- toString(ds[["lvl6_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 6)
+      
+      tree[6] <- syn
+      ancestors <- append(ancestors, tree[5])
+    }
+    else if(!is.na(ds[["lvl7_synset"]][i]) & synlen > 6){
+      syn <- toString(ds[["lvl7_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 7)
+      
+      tree[7] <- syn
+      ancestors <- append(ancestors, tree[6])
+    }
+    else if(!is.na(ds[["lvl8_synset"]][i]) & synlen > 7){
+      syn <- toString(ds[["lvl8_synset"]][i])
+      synsets <- append(synsets, syn)
+      tree_depth <- append(tree_depth, 8)
+      
+      tree[8] <- syn
+      ancestors <- append(ancestors, tree[7])
+    }
+    #needs optional lvl 7 and 8, see optional parameters
+    else{
+      print("Some error must have occured.")
+      print(ds[['synonyms']][i])
+    }
+    
+  }
+  ds_copy$synsets <- synsets
+  ds_copy$tree_depth <- tree_depth
+  ds_copy$ancestors <- ancestors
+  ds_copy
+}
+
+#adding all the new columns
+annotator1_fruits <- red_lvls(annotator1_fruits)
+annotator1_tools <- red_lvls(annotator1_tools)
+annotator1_instruments <- red_lvls(annotator1_instruments, 8)
+
+annotator2_tools <- red_lvls(annotator2_tools)
+annotator3_tools <- red_lvls(annotator3_tools)
+
+
+#Now we remove the unnecessary old columns from the dfs
+#tools
+bl_tools <- data.frame(matrix(ncol = 6, nrow = 164))
+colnames(bl_tools) <- c('synsets', 'tree_depth', 'ancestors', 
+                        'judgmt_a1', 'judgmt_a2', 'judgmt_a3')
+
+bl_tools$synsets <- annotator1_tools$synsets
+bl_tools$tree_depth <- annotator1_tools$tree_depth
+bl_tools$ancestors <- annotator1_tools$ancestors
+bl_tools$judgmt_a1 <- annotator1_tools$isBasic
+
+#add judgements of other 2 annotators
+bl_tools$judgmt_a2 <- annotator2_tools$isBasic
+bl_tools$judgmt_a3 <- annotator3_tools$isBasic
+
+#instruments
+
+bl_instruments <- data.frame(matrix(ncol = 4, nrow = 192))
+colnames(bl_instruments) <- c('synsets', 'tree_depth', 'ancestors', 
+                              'judgmt_a1')
+
+bl_instruments$synsets <- annotator1_instruments$synsets
+bl_instruments$tree_depth <- annotator1_instruments$tree_depth
+bl_instruments$ancestors <- annotator1_instruments$ancestors
+bl_instruments$judgmt_a1 <- annotator1_instruments$isBasic
+
+#fruits
+
+bl_fruits <- data.frame(matrix(ncol = 4, nrow = 197))
+colnames(bl_fruits) <- c('synsets', 'tree_depth', 'ancestors', 
+                         'judgmt_a1')
+
+bl_fruits$synsets <- annotator1_fruits$synsets
+bl_fruits$tree_depth <- annotator1_fruits$tree_depth
+bl_fruits$ancestors <- annotator1_fruits$ancestors
+bl_fruits$judgmt_a1 <- annotator1_fruits$isBasic
+
+```
+
+## Inspecting new dataframes 
+
+```{r echo=TRUE}
+head(bl_tools)
+```
+
+```{r echo=TRUE}
+head(bl_fruits)
+```
+
+```{r echo=TRUE}
+head(bl_instruments)
+```
+
+## Quick visualization of Tools
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+p <- ggplot(bl_tools, mapping = aes(x = tree_depth, fill = judgmt_a1)) +
+  geom_bar() +
+  scale_x_continuous(breaks = c(1, 2, 3, 4, 5, 6)) +
+  labs(x="Tree depth", y="Count of synsets", 
+       title="Count of tools by depth", 
+       subtitle="Colored by annotator judgement.",
+       caption="Figure 1.: Tools by depth, colored by judgement.")
+p 
+
+```
+
+Datasets from Niamh Henry
+```{r message=FALSE, warning=FALSE}
+all_ediblefruit <- read_csv("./niamh/labels/all_ediblefruit_labelled.csv")
+all_handtool <- read_csv("./niamh/labels/all_handtool_labelled.csv")
+all_instrument <- read_csv("./niamh/labels/all_musicalinstruments_labelled.csv")
+all_furniture <- read_csv("./niamh/labels/GoldStandard_Furniture_merged.csv")
+all_garments <- read_xlsx("./niamh/labels/GoldStandard_Garments_merged.xlsx")
+
+```
+
+Now I can complete the two dataframes bl_fruits and _instruments with the missing annotations.
+* Check if same order
+* copy over annotations columns (2)
+* copy over glossary and synonyms (3)
+
+```{r message=FALSE, warning=FALSE}
+issameorder1 <- (all_ediblefruit$A1_Label == bl_fruits$judgmt_a1) #True
+
+bl_fruits$judgmt_a2 <- all_ediblefruit$Label
+bl_fruits$judgmt_a3 <- all_ediblefruit$A3_Label
+bl_fruits$synonyms <- all_ediblefruit$Synonyms
+bl_fruits$glossary <- all_ediblefruit$Glossary
+
+issameorder2 <- all_instrument$Label == bl_instruments$judgmt_a1 #True
+
+bl_instruments$judgmt_a2 <- all_instrument$A2_Label
+bl_instruments$judgmt_a3 <- all_instrument$A3_Label
+bl_instruments$synonyms <- all_instrument$Synonyms
+bl_instruments$glossary <- all_instrument$Glossary
+
+bl_tools$synonyms <- all_handtool$Synonyms
+bl_tools$glossary <- all_handtool$Glossary
+```
+Having both the data from Niamh and Hollink, I finally have all of the information. Niamh added the synonyms and glossary to her dataframe and she has the 2 missing anotations from the two other annotators.
+
+The data has some formating around the synset names, they are not consistent between datasets and already lead to bugs.
+
+```{r}
+syn_stripper <- function(string){
+  if(str_split(string, '')[[1]][1] != "["){
+    stripped <- string
+  }
+  else{
+    stripped <- str_split(string, '\\(')[[1]][2]
+    stripped <- str_split(stripped, '\\)')[[1]][1]
+    s_t_r_i_p <- str_split(stripped, "")
+    stripped <- str_flatten(s_t_r_i_p[[1]][3:length(s_t_r_i_p[[1]])-1])
+  }
+  stripped
+}
+#bug: there are ' inside of the synset names..
+#fixed: different extraction.
+
+
+bl_fruits$synsets <- sapply(bl_fruits$synsets, syn_stripper)
+bl_fruits$ancestors <- sapply(bl_fruits$ancestors, syn_stripper)
+
+bl_instruments$synsets <- sapply(bl_instruments$synsets, syn_stripper)
+bl_instruments$ancestors <- sapply(bl_instruments$ancestors, syn_stripper)
+
+bl_tools$synsets <- sapply(bl_tools$synsets, syn_stripper)
+bl_tools$ancestors <- sapply(bl_tools$ancestors, syn_stripper)
+
+```
+
+By visualizing the trees (below) I found that some rows in the dataset are duplicates. There are also cases where the synset column has duplicates, but some other information in the same column is different, e.g. ancestor. Removing pure duplicates is easy, but removing semi-duplicates with differing annotations is going to be tougher. I will probably have to make a list of all semi-duplicates and handpick the candidate to keep.
+
+## Eliminating duplicates
+### Function definitions
+```{r}
+
+find_total_dups <- function(df){
+  dupes <- data.frame()
+  dups_bools <- duplicated(df[,1:3])
+  dups_pos <- which(dups_bools)
+  for (x in dups_pos){
+    dupes <- rbind(dupes, df[which(df$synonyms == df$synonyms[x]),])
+  }
+  
+  dupes
+  
+}
+
+find_semi_dupes <- function(df){
+  dupes <- data.frame()
+  
+  dup_bools <- duplicated(df$synsets)
+  dup_pos <- which(dup_bools)
+  dup <- c()
+  for (x in dup_pos){
+    dup <- unique(append(dup, which(df$synonyms == df$synonyms[x])))
+  }
+  df[dup,]
+}
+  
+#fruits
+fruits_has_total_dup <- find_total_dups(bl_fruits) #NULL
+fruits_has_semi_dup <- find_semi_dupes(bl_fruits) #2
+
+#tools
+tools_has_total_dup <- find_total_dups(bl_tools) #NULL
+tools_has_semi_dup <- find_semi_dupes(bl_tools) #14
+
+#instruments
+instruments_has_total_dup <- find_total_dups(bl_instruments) #yes, 3
+instruments_has_semi_dup <- find_semi_dupes(bl_instruments) # many
+```
+Now that I can detect complete or semi duplicates, I will handpick the rows to be eliminated from the original data.
+
+### Fruits
+
+```{r}
+print.data.frame(fruits_has_total_dup)
+```
+The fruits dataset has 0 total duplicates.
+
+```{r}
+print.data.frame(fruits_has_semi_dup[,c("synsets", "ancestors","judgmt_a1","judgmt_a2","judgmt_a3")])
+```
+There are 2 instances of semi-duplicate concepts.
+#### The currant
+Currant has also been listed as a subordinate of raisin, additionally to berry. This seems superflous as the fruit is still the same fruit after drying. People only tend to call all kinds of dried berries 'raisin'.
+I will remove the raisin subordinate (105).
+
+#### The medlar
+There does not seem to be any difference between both instances, except for the second one having a higher digit at the end of the name and the third annotator giving two different judgements. I will remove the one with the X judgement (149).
+
+#### Removal
+```{r}
+fruits_rm <- c(105, 149)
+#bl_fruits_new <- bl_fruits[-fruits_rm,]
+```
+
+### Tools
+```{r}
+print.data.frame(tools_has_total_dup)
+```
+Tools has no total duplicates.
+
+```{r}
+print.data.frame(tools_has_semi_dup[,c("synsets", "ancestors","judgmt_a1","judgmt_a2","judgmt_a3")])
+```
+#### Hand Shovel
+RM 33
+
+#### Coal Shovel
+RM 34
+
+#### Entrenching Tool
+RM 35
+
+#### Spade
+RM 36
+
+#### Ditch Spade
+RM 37
+
+#### Garden Spade
+RM 38
+
+#### Spud
+RM 39
+
+#### Removal
+```{r}
+tools_rm <- c(33:39)
+#bl_tools_new <- bl_fruits[-tools_rm,]
+```
+
+### Instruments
+```{r}
+print.data.frame(instruments_has_total_dup[,c("synsets", "ancestors","judgmt_a1","judgmt_a2","judgmt_a3")])
+```
+#### Baby Grand
+RM 59, 107
+
+#### Concert Grand
+RM 60, 108
+
+#### Spinet 
+RM 63, 94, 111
+
+```{r}
+print.data.frame(instruments_has_semi_dup[,c("synsets", "ancestors","judgmt_a1","judgmt_a2","judgmt_a3")])
+```
+#### Synthesiser
+RM 32                
+
+#### Piano
+RM 57, 105
+
+#### Grand Piano
+RM 58, 106
+
+#### Mechanical Piano
+RM 61, 109
+
+#### Upright
+RM 32, 110
+
+#### Bass fiddle
+RM 71
+
+#### Clavichord
+RM 91
+
+#### clavier
+RM 92
+
+#### Harpsichord
+RM 93
+
+#### Virginal
+RM 95
+
+#### Bass Guitar
+RM 5 Because visually closer to guitar
+
+#### Dulcimer
+RM /
+
+#### Bass Horn
+RM 120
+
+#### Euphonium
+RM 121
+
+#### Helicon
+RM 122
+
+#### Accordion
+RM 133
+
+#### Organ
+RM 141
+
+#### Bombardon
+RM 180
+
+In the case where two annotators annotated 'x', that duplicate was prefered for removal.
+
+#### Removal
+```{r}
+#instruments_rm <- c(59, 107, 60, 108,63, 94, 111,32,57,105,58,106,61,109,32,110,71,91,91,93,95,5,120,121,122,133,141,180)
+
+instruments_rm <- c(59, 107, 60, 108,63, 94, 111)
+bl_instruments_new <- bl_instruments[-instruments_rm,]
+```
+
+
+## Export BL Dataframe
+At this point we have inspected, combined and transformed the data. To use the data in the online experiment, we need all basic level concepts first. The total number of basic level concepts in each taxonomy decides over the size of the final data-set. The final experiment data set could have been assembled in this file, but it is unsure if all hyper/hyponyms are captured correctly after the data set modifications. From the csv of Hollink's previous studies it is not possible anymore to detect multiple parents.
+The data needs to be checked with the NLTK Wordnet data set, which works better in Python. The dataset to be exported only needs two columns; the synset name and the judgement certainty. Only concepts that were judged as BL by at least 2 annotators should be included. The second column will thus only have 2 possible values.
+
+The duplicate finding process above is not suited for this purpose, It only served to show me that the current data set needs to be reconstructed using the actual Wordnet Python package.
+
+```{r}
+extract_unique_bl <- function(df, full_certainy = F){
+  unique_bl <- data.frame()
+  
+  for(i in 1:length(df[[1]])){
+    synset <- df$synsets[i]
+    a1 <- df$judgmt_a1[i] == 'b'
+    a2 <- df$judgmt_a2[i] == 'b'
+    a3 <- df$judgmt_a3[i] == 'b'
+    bl_certainty <- F
+    if(any(synset == unique_bl$synsets)){
+      print("Duplicate:")
+      print(synset)
+    }
+    else{
+      b_votes <- length(which(c(a1,a2,a3)))
+      if(b_votes == 3){
+        bl_certainty <- T
+        unique_bl <- rbind(unique_bl, c(synset, bl_certainty))
+      }
+      if(b_votes == 2 & (!full_certainy)){
+        unique_bl <- rbind(unique_bl, c(synset, bl_certainty))
+      }
+    }
+  }
+  colnames(unique_bl) <- c("synset", "bl_certain")
+  unique_bl
+}
+
+bl_only_handtools <- extract_unique_bl(bl_tools)
+bl_only_edible_fruits <- extract_unique_bl(bl_fruits)
+bl_only_musical_instruments <- extract_unique_bl(bl_instruments)
+
+write_csv(bl_only_edible_fruits, "bl_only_edible_fruits.csv")
+write_csv(bl_only_handtools, "bl_only_handtools.csv")
+write_csv(bl_only_musical_instruments, "bl_only_musical_instruments.csv")
+
+write_csv(bl_fruits, "edible_fruit.csv")
+write_csv(bl_tools, "handtool.csv")
+write_csv(bl_instruments, "musical_instrument.csv")
+
+```
+
+
+
+
+
+
