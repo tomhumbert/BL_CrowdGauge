@@ -3,12 +3,12 @@
 31,edible_fruit.n.01,apple.n.01,fruit with red or yellow or green skin and sweet to tart crisp whitish flesh,True,1,1.0,1.0
 96,furniture.n.01,armchair.n.01,chair with a support on each side for arms,True,0,0.0,1.0
 90,furniture.n.01,armoire.n.01,a large wardrobe or cabinet; originally used for storing weapons,True,0,0.0,1.0
-5,hand_tool.n.01,awl.n.01,a pointed tool for marking surfaces or for punching small holes,False,1,0.7,0.5
+5,hand_tool.n.01,awl.n.01,a pointed tool for marking surfaces or for punching small holes,True,1,1.0,1.0
 105,furniture.n.01,baby_bed.n.01,a small bed for babies; enclosed by sides to prevent the baby from falling,False,1,0.7,0.5
 71,musical_instrument.n.01,bagpipe.n.01,a tubular wind instrument; the player blows air into a bag and squeezes it out through the drone,True,1,1.0,1.0
 78,musical_instrument.n.01,bass_clarinet.n.01,a large clarinet whose range is an octave below the B-flat clarinet,True,0,0.0,1.0
 53,musical_instrument.n.01,bass_horn.n.01,the lowest brass wind instrument,True,1,1.0,1.0
-73,musical_instrument.n.01,bassoon.n.01,a double-reed instrument; the tenor of the oboe family,True,1,1.0,1.0
+73,musical_instrument.n.01,bassoon.n.01,a double-reed instrument; the tenor of the oboe family,False,1,0.7,0.5
 126,clothing.n.01,bathrobe.n.01,a loose-fitting robe of towelling; worn after a bath or swim,True,0,0.0,1.0
 91,furniture.n.01,bed.n.01,a piece of furniture that provides a place to sleep,True,1,1.0,1.0
 93,furniture.n.01,bench.n.01,a long seat for more than one person,True,1,1.0,1.0
@@ -44,12 +44,12 @@
 74,musical_instrument.n.01,contrabassoon.n.01,the bassoon that is the largest instrument in the oboe family,False,0,0.3,0.5
 106,furniture.n.01,cradle.n.01,a baby bed with sides and rockers,False,0,0.3,0.5
 30,hand_tool.n.01,crescent_wrench.n.01,an adjustable wrench designed to fit hexagonal nuts with the adjusting screw built into the head of the wrench,True,0,0.0,1.0
-41,edible_fruit.n.01,custard_apple.n.02,the fruit of any of several tropical American trees of the genus Annona having soft edible pulp,True,1,1.0,1.0
-59,musical_instrument.n.01,cymbal.n.01,a percussion instrument consisting of a concave brass disk; makes a loud crashing sound when hit with a drumstick or when two are struck together,True,1,1.0,1.0
+41,edible_fruit.n.01,custard_apple.n.02,the fruit of any of several tropical American trees of the genus Annona having soft edible pulp,False,1,0.7,0.5
+59,musical_instrument.n.01,cymbal.n.01,a percussion instrument consisting of a concave brass disk; makes a loud crashing sound when hit with a drumstick or when two are struck together,False,1,0.7,0.5
 52,edible_fruit.n.01,damson.n.01,dark purple plum of the damson tree,True,0,0.0,1.0
 101,furniture.n.01,desk.n.01,a piece of furniture with a writing surface and usually drawers or other compartments,True,1,1.0,1.0
 82,furniture.n.01,dresser.n.05,a cabinet with shelves,True,0,0.0,1.0
-61,musical_instrument.n.01,drum.n.01,a musical percussion instrument; usually consists of a hollow cylinder with a membrane stretched across each end,False,1,0.7,0.5
+61,musical_instrument.n.01,drum.n.01,a musical percussion instrument; usually consists of a hollow cylinder with a membrane stretched across each end,True,1,1.0,1.0
 1,edible_fruit.n.01,edible_fruit.n.01,edible reproductive body of a seed plant especially one having sweet flesh,True,0,0.0,1.0
 54,musical_instrument.n.01,euphonium.n.01,a bass horn (brass wind instrument) that is the tenor of the tuba family,True,0,0.0,1.0
 136,clothing.n.01,face_veil.n.01,a piece of more-or-less transparent material that covers the face,False,0,0.3,0.5
@@ -60,13 +60,13 @@
 48,edible_fruit.n.01,granadilla.n.04,the egg-shaped edible fruit of tropical American vines related to passionflowers,True,0,0.0,1.0
 58,musical_instrument.n.01,grand_piano.n.01,a piano with the strings on a horizontal harp-shaped frame; usually supported by three legs,True,0,0.0,1.0
 32,edible_fruit.n.01,granny_smith.n.01,apple with a green skin and hard tart flesh,True,0,0.0,1.0
-43,edible_fruit.n.01,grape.n.01,any of various juicy fruit of the genus Vitis with green or purple skins; grow in clusters,False,1,0.7,0.5
+43,edible_fruit.n.01,grape.n.01,any of various juicy fruit of the genus Vitis with green or purple skins; grow in clusters,True,1,1.0,1.0
 67,musical_instrument.n.01,guitar.n.01,a stringed instrument usually having six strings; played by strumming or plucking,True,1,1.0,1.0
 9,hand_tool.n.01,hammer.n.02,a hand tool with a heavy rigid head and a handle; used to deliver an impulsive force by striking,True,1,1.0,1.0
 0,hand_tool.n.01,hand_tool.n.01,a tool used with workers' hands,True,0,0.0,1.0
 18,hand_tool.n.01,handsaw.n.01,a saw used with one hand for cutting wood,True,0,0.0,1.0
 65,musical_instrument.n.01,harp.n.01,a chordophone that has a triangular frame consisting of a sounding board and a pillar and a curved neck; the strings stretched between the neck and the soundbox are plucked with the fingers,True,1,1.0,1.0
-55,musical_instrument.n.01,harpsichord.n.01,a clavier with strings that are plucked by plectra mounted on pivots,True,1,1.0,1.0
+55,musical_instrument.n.01,harpsichord.n.01,a clavier with strings that are plucked by plectra mounted on pivots,False,1,0.7,0.5
 34,edible_fruit.n.01,heart_cherry.n.02,large heart-shaped sweet cherry with soft flesh,True,0,0.0,1.0
 76,musical_instrument.n.01,heckelphone.n.01,an oboe pitched an octave below the ordinary oboe,True,0,0.0,1.0
 60,musical_instrument.n.01,high-hat_cymbal.n.01,cymbals that are operated by a foot pedal,False,0,0.3,0.5
@@ -85,15 +85,15 @@
 72,musical_instrument.n.01,musette.n.01,a small bagpipe formerly popular in France,True,0,0.0,1.0
 2,musical_instrument.n.01,musical_instrument.n.01,any of various devices or contrivances that can be used to produce musical tones or sounds,True,0,0.0,1.0
 8,hand_tool.n.01,nailfile.n.01,a small flat file for shaping the nails,True,0,0.0,1.0
-127,clothing.n.01,necktie.n.01,neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front,True,1,1.0,1.0
+127,clothing.n.01,necktie.n.01,neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front,False,1,0.7,0.5
 16,hand_tool.n.01,needlenose_pliers.n.01,small pliers with long thin jaws for fine work,True,0,0.0,1.0
-75,musical_instrument.n.01,oboe.n.01,a slender double-reed instrument; a woodwind with a conical bore and a double-reed mouthpiece,False,1,0.7,0.5
+75,musical_instrument.n.01,oboe.n.01,a slender double-reed instrument; a woodwind with a conical bore and a double-reed mouthpiece,True,1,1.0,1.0
 39,edible_fruit.n.01,orange.n.01,round yellow to orange fruit of any of several citrus trees,True,1,1.0,1.0
 47,edible_fruit.n.01,passion_fruit.n.01,egg-shaped tropical fruit of certain passionflower vines; used for sherbets and confectionery and drinks,True,1,1.0,1.0
 49,edible_fruit.n.01,pear.n.01,sweet juicy gritty-textured fruit available in many varieties,True,1,1.0,1.0
 94,furniture.n.01,pew.n.01,long bench with backs; used in church by the congregation,True,0,0.0,1.0
 20,hand_tool.n.01,phillips_screwdriver.n.01,a screwdriver for use with Phillips screws,True,0,0.0,1.0
-57,musical_instrument.n.01,piano.n.01,a keyboard instrument that is played by depressing keys that cause hammers to strike tuned strings and produce sounds,False,1,0.7,0.5
+57,musical_instrument.n.01,piano.n.01,a keyboard instrument that is played by depressing keys that cause hammers to strike tuned strings and produce sounds,True,1,1.0,1.0
 80,musical_instrument.n.01,piccolo.n.01,a small flute; pitched an octave above the standard flute,True,0,0.0,1.0
 13,hand_tool.n.01,plane.n.05,a carpenter's hand tool with an adjustable blade for smoothing or shaping wood,True,1,1.0,1.0
 15,hand_tool.n.01,pliers.n.01,a gripping hand tool with two hinged arms and (usually) serrated jaws,True,1,1.0,1.0
@@ -111,24 +111,24 @@
 14,hand_tool.n.01,smooth_plane.n.01,a small plane for finish work,True,0,0.0,1.0
 97,furniture.n.01,sofa.n.01,an upholstered seat for more than one person,True,1,1.0,1.0
 22,hand_tool.n.01,spade.n.02,a sturdy hand shovel that can be pushed into the earth with the foot,True,0,0.0,1.0
-23,hand_tool.n.01,spatula.n.02,a hand tool with a thin flexible blade used to mix or spread soft substances,True,1,1.0,1.0
+23,hand_tool.n.01,spatula.n.02,a hand tool with a thin flexible blade used to mix or spread soft substances,False,1,0.7,0.5
 56,musical_instrument.n.01,spinet.n.02,early model harpsichord with only one string per note,False,0,0.3,0.5
-25,hand_tool.n.01,square.n.08,a hand tool consisting of two straight arms at right angles; used to construct or test right angles,False,1,0.7,0.5
+25,hand_tool.n.01,square.n.08,a hand tool consisting of two straight arms at right angles; used to construct or test right angles,True,1,1.0,1.0
 99,furniture.n.01,stool.n.01,a simple seat without a back or arms,True,1,1.0,1.0
 64,musical_instrument.n.01,stradavarius.n.01,a violin made by Antonio Stradivari or a member of his family,True,0,0.0,1.0
 117,clothing.n.01,suit.n.01,a set of garments (usually including a jacket and trousers or skirt) for outerwear all of the same fabric and color,True,1,1.0,1.0
 44,edible_fruit.n.01,sultana.n.01,pale yellow seedless grape used for raisins and wine,True,0,0.0,1.0
 108,clothing.n.01,sweat_pants.n.01,loose-fitting trousers with elastic cuffs; worn by athletes,True,0,0.0,1.0
 109,clothing.n.01,sweater.n.01,a crocheted or knitted garment covering the upper part of the body,True,1,1.0,1.0
-129,clothing.n.01,swimsuit.n.01,tight fitting garment worn for swimming,False,1,0.7,0.5
+129,clothing.n.01,swimsuit.n.01,tight fitting garment worn for swimming,True,1,1.0,1.0
 87,furniture.n.01,table.n.02,a piece of furniture having a smooth flat top that is usually supported by one or more vertical legs,True,1,1.0,1.0
 116,clothing.n.01,tank_top.n.01,a tight-fitting sleeveless shirt with wide shoulder straps and low neck and no front opening; often worn over a shirt or blouse,True,0,0.0,1.0
-103,furniture.n.01,throne.n.01,"the chair of state for a monarch, bishop, etc.",True,1,1.0,1.0
+103,furniture.n.01,throne.n.01,"the chair of state for a monarch, bishop, etc.",False,1,0.7,0.5
 69,musical_instrument.n.01,trombone.n.01,a brass instrument consisting of a long tube whose length can be varied by a U-shaped slide,True,1,1.0,1.0
-107,clothing.n.01,trouser.n.01,"(usually in the plural) a garment extending from the waist to the knee or ankle, covering each leg separately",False,1,0.7,0.5
+107,clothing.n.01,trouser.n.01,"(usually in the plural) a garment extending from the waist to the knee or ankle, covering each leg separately",True,1,1.0,1.0
 27,hand_tool.n.01,trowel.n.01,a small hand tool with a handle and flat metal blade; used for scooping or spreading plaster or similar materials,True,1,1.0,1.0
 110,clothing.n.01,turtleneck.n.01,a sweater or jersey with a high close-fitting collar,True,0,0.0,1.0
-131,clothing.n.01,underwear.n.01,undergarment worn next to the skin and under the outer garments,True,1,1.0,1.0
+131,clothing.n.01,underwear.n.01,undergarment worn next to the skin and under the outer garments,False,1,0.7,0.5
 124,clothing.n.01,uplift.n.02,a brassiere that lifts and supports the breasts,True,0,0.0,1.0
 135,clothing.n.01,veil.n.01,a garment that covers the head and face,False,1,0.7,0.5
 63,musical_instrument.n.01,violin.n.01,bowed stringed instrument that is the highest member of the violin family; this instrument has four strings and a hollow body and an unfretted fingerboard and is played with a bow,True,1,1.0,1.0
