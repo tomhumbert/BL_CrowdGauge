@@ -31,7 +31,7 @@ old <- theme_set(theme_stata())
 #### Set path to experiment results file here (generated from python script) ####
 #################################################################################
 
-exp_results <- read_csv("D:/VU/Thesis/BL_exp_creator/experiment_data_computed/data_all_ans.csv",
+exp_results <- read_csv("../Past_experiments/Pilot2/computed_data/data_all_ans.csv",
                         col_names = c("index", "c_name", "img", "lvl", "branch", 
                                       "stim_type", "participant_id", "accuracy", "react_time"),
                         col_types = cols('i','c','f','f','f','l','c','n','n'),
@@ -811,32 +811,7 @@ con_mat_bl
 
 ## Advanced rating
 
-BL annotation could range from 0-1
-0, not basic level
-1, surely basic level
-anything inbetween gives estimate to bl likelihood
-
-Steps:
-* prepare rating df blueprint > | synset | blness | accuracy |
-* DF per 'annotator', create hypothetical binary annotation (bl, or not) 
- - select fastest times in both true/false type triples
- - is same category + accurate: annotate with 1
- - is different categories for fastest times + accurate: both get 0.5
- - is fastest time inaccurate, select next fastest time, give 0.5
- - two fastest times inaccurate, select remaining, give 0.3
- - all inaccurate, select superordinate, give 0.1
-
-* Create new GOLD STANDARD data frame (per branch) like hollink (compatibility):
-  -> | synset | glossary | depth in hierarchy | direct hypernyms | direct hyponyms | accuracy | blness |
-
-* Per synset, combine blness measure (mean?), add mean accuracy
-* I would still be interested in an inter-annotator measure that reveals groups of 'similarly' rating annotators. Could use to split gold standard in two w.r.t. groups of ppl.
-
-
-To do in R:
- - per annotator df export
- 
-The rest happens in Python jupyter notebook.
+### Export data for jupyter notebook <./BL_gauging_notebook.ipynb>
 
 ```{r }
 for (p in 1:p_num){
@@ -851,9 +826,32 @@ for (p in 1:p_num){
 ```
 
 
+### Import rated data set from jupyter notebook
+(I prefer data analysis in R, don't judge)
+
+```{r}
+adv_rated_data = read_csv("../Past_experiments/Pilot2/computed_data/Gold_Standard_with_rt_and_blness.csv")
+
+adv_rated_data <- adv_rated_data %>%
+  mutate(old_bl_label = old_bl_label == 1) %>%
+  mutate(blness_binary = floor(blness)==1)
 
 
+summary(adv_rated_data[c('branch', 'synset', 'expert_certainty', 'old_bl_label', 'blness_binary', 'sample_median_rt', 'sample_mean_acc', 'sample_std_deviation')])
+```
 
+```{r}
+con_mat_bl <- confusionMatrix(data=as.factor(adv_rated_data$old_bl_label), reference = as.factor(adv_rated_data$blness_binary))
+con_mat_bl
+
+```
+
+Comparison in terms of levels
+* Infer level label again (old and new)
+```{r}
+
+
+```
 
 
 
