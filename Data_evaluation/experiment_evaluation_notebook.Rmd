@@ -811,21 +811,6 @@ con_mat_bl
 
 ## Advanced rating
 
-### Export data for jupyter notebook <./BL_gauging_notebook.ipynb>
-
-```{r }
-for (p in 1:p_num){
-  part_df <- exp_results %>%
-    filter(part_id == p) %>%
-    select(branch, c_name, stim_type, accuracy, react_time)
-  
-  write_csv(part_df, paste("p", p,"_reaction_times.csv", sep=""))
-}
-
-
-```
-
-
 ### Import rated data set from jupyter notebook
 (I prefer data analysis in R, don't judge)
 
