@@ -1,0 +1,397 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+tank_top_n_01 "Bunk bed" "bunk_bed_n_01 hyponym tank_top_n_01 False" 2
+muffler_n_02 "Grand piano" "grand_piano_n_01 hyponym muffler_n_02 False" 2
+tank_top_n_01 "Clothing" "clothing_n_01 hypernym tank_top_n_01 True" 1
+armchair_n_01 "Stradavarius" "stradavarius_n_01 hyponym armchair_n_01 False" 2
+highhat_cymbal_n_01 "Clothing" "clothing_n_01 hypernym highhat_cymbal_n_01 False" 2
+heart_cherry_n_02 "Cherry" "cherry_n_03 bl heart_cherry_n_02 True" 1
+uplift_n_02 "Uplift" "uplift_n_02 hyponym uplift_n_02 True" 1
+damson_n_01 "Cradle" "cradle_n_01 hyponym damson_n_01 False" 2
+spade_n_02 "Hand tool" "hand_tool_n_01 hypernym spade_n_02 True" 1
+contrabassoon_n_01 "Contrabassoon" "contrabassoon_n_01 hyponym contrabassoon_n_01 True" 1
+love_seat_n_01 "Love seat" "love_seat_n_01 hyponym love_seat_n_01 True" 1
+turtleneck_n_01 "Turtleneck" "turtleneck_n_01 hyponym turtleneck_n_01 True" 1
+sultana_n_01 "Wardrobe" "wardrobe_n_01 bl sultana_n_01 False" 2
+granadilla_n_04 "Granadilla" "granadilla_n_04 hyponym granadilla_n_04 True" 1
+uplift_n_02 "Hand tool" "hand_tool_n_01 hypernym uplift_n_02 False" 2
+writing_desk_n_02 "Hand tool" "hand_tool_n_01 hypernym writing_desk_n_02 False" 2
+bosc_n_01 "Trombone" "trombone_n_01 bl bosc_n_01 False" 2
+cherimoya_n_02 "Cabinet" "cabinet_n_01 bl cherimoya_n_02 False" 2
+carpenters_square_n_01 "Carpenters square" "carpenters_square_n_01 hyponym carpenters_square_n_01 True" 1
+granny_smith_n_01 "Bench" "bench_n_01 bl granny_smith_n_01 False" 2
+church_key_n_01 "Hand tool" "hand_tool_n_01 hypernym church_key_n_01 True" 1
+bunk_bed_n_01 "Needlenose pliers" "needlenose_pliers_n_01 hyponym bunk_bed_n_01 False" 2
+pew_n_01 "Musical instrument" "musical_instrument_n_01 hypernym pew_n_01 False" 2
+church_key_n_01 "Church key" "church_key_n_01 hyponym church_key_n_01 True" 1
+highboy_n_01 "Bassoon" "bassoon_n_01 bl highboy_n_01 False" 2
+bikini_n_02 "Chest of drawers" "chest_of_drawers_n_01 bl bikini_n_02 False" 2
+armoire_n_01 "Clarinet" "clarinet_n_01 bl armoire_n_01 False" 2
+cherimoya_n_02 "Edible fruit" "edible_fruit_n_01 hypernym cherimoya_n_02 True" 1
+needlenose_pliers_n_01 "Pliers" "pliers_n_01 bl needlenose_pliers_n_01 True" 1
+granadilla_n_04 "Hammer" "hammer_n_02 bl granadilla_n_04 False" 2
+lyre_n_01 "Head covering" "veil_n_01 bl lyre_n_01 False" 2
+miniskirt_n_01 "Furniture" "furniture_n_01 hypernym miniskirt_n_01 False" 2
+muffler_n_02 "Scarf" "scarf_n_01 bl muffler_n_02 True" 1
+dresser_n_05 "Dresser" "dresser_n_05 hyponym dresser_n_05 True" 1
+watermelon_n_02 "Tank top" "tank_top_n_01 hyponym watermelon_n_02 False" 2
+spinet_n_02 "Melon" "melon_n_01 bl spinet_n_02 False" 2
+highhat_cymbal_n_01 "Musical instrument" "musical_instrument_n_01 hypernym highhat_cymbal_n_01 True" 1
+putty_knife_n_01 "Putty knife" "putty_knife_n_01 hyponym putty_knife_n_01 True" 1
+raincoat_n_01 "Clothing" "clothing_n_01 hypernym raincoat_n_01 True" 1
+highboy_n_01 "Business suit" "business_suit_n_01 hyponym highboy_n_01 False" 2
+bikini_n_02 "Hand tool" "hand_tool_n_01 hypernym bikini_n_02 False" 2
+business_suit_n_01 "Edible fruit" "edible_fruit_n_01 hypernym business_suit_n_01 False" 2
+heckelphone_n_01 "Heckelphone" "heckelphone_n_01 hyponym heckelphone_n_01 True" 1
+granadilla_n_04 "Edible fruit" "edible_fruit_n_01 hypernym granadilla_n_04 True" 1
+muffler_n_02 "Muffler" "muffler_n_02 hyponym muffler_n_02 True" 1
+needlenose_pliers_n_01 "Musical instrument" "musical_instrument_n_01 hypernym needlenose_pliers_n_01 False" 2
+piccolo_n_01 "Furniture" "furniture_n_01 hypernym piccolo_n_01 False" 2
+campstool_n_01 "Edible fruit" "edible_fruit_n_01 hypernym campstool_n_01 False" 2
+bow_tie_n_01 "Spade" "spade_n_02 hyponym bow_tie_n_01 False" 2
+armoire_n_01 "Wardrobe" "wardrobe_n_01 bl armoire_n_01 True" 1
+bitter_orange_n_02 "Edible fruit" "edible_fruit_n_01 hypernym bitter_orange_n_02 True" 1
+floor_lamp_n_01 "Lamp" "lamp_n_02 bl floor_lamp_n_01 True" 1
+cathedra_n_01 "Furniture" "furniture_n_01 hypernym cathedra_n_01 True" 1
+tank_top_n_01 "Stool" "stool_n_01 bl tank_top_n_01 False" 2
+cradle_n_01 "Furniture" "furniture_n_01 hypernym cradle_n_01 True" 1
+crescent_wrench_n_01 "Wrench" "wrench_n_03 bl crescent_wrench_n_01 True" 1
+bathrobe_n_01 "Musical instrument" "musical_instrument_n_01 hypernym bathrobe_n_01 False" 2
+crescent_wrench_n_01 "Flute" "flute_n_01 bl crescent_wrench_n_01 False" 2
+bathrobe_n_01 "Heart cherry" "heart_cherry_n_02 hyponym bathrobe_n_01 False" 2
+highboy_n_01 "Furniture" "furniture_n_01 hypernym highboy_n_01 True" 1
+sweat_pants_n_01 "Saw" "saw_n_02 bl sweat_pants_n_01 False" 2
+carpenters_hammer_n_01 "Raincoat" "raincoat_n_01 hyponym carpenters_hammer_n_01 False" 2
+bongo_n_01 "Bongo" "bongo_n_01 hyponym bongo_n_01 True" 1
+nailfile_n_01 "Guitar" "guitar_n_01 bl nailfile_n_01 False" 2
+bradawl_n_01 "Bradawl" "bradawl_n_01 hyponym bradawl_n_01 True" 1
+carpenters_hammer_n_01 "Hand tool" "hand_tool_n_01 hypernym carpenters_hammer_n_01 True" 1
+business_suit_n_01 "Suit" "suit_n_01 bl business_suit_n_01 True" 1
+putty_knife_n_01 "Musical instrument" "musical_instrument_n_01 hypernym putty_knife_n_01 False" 2
+bass_clarinet_n_01 "Clarinet" "clarinet_n_01 bl bass_clarinet_n_01 True" 1
+writing_desk_n_02 "Writing desk" "writing_desk_n_02 hyponym writing_desk_n_02 True" 1
+stradavarius_n_01 "Furniture" "furniture_n_01 hypernym stradavarius_n_01 False" 2
+carpenters_hammer_n_01 "Carpenters hammer" "carpenters_hammer_n_01 hyponym carpenters_hammer_n_01 True" 1
+heart_cherry_n_02 "Turtleneck" "turtleneck_n_01 hyponym heart_cherry_n_02 False" 2
+face_veil_n_01 "Furniture" "furniture_n_01 hypernym face_veil_n_01 False" 2
+contrabassoon_n_01 "Edible fruit" "edible_fruit_n_01 hypernym contrabassoon_n_01 False" 2
+phillips_screwdriver_n_01 "Hand tool" "hand_tool_n_01 hypernym phillips_screwdriver_n_01 True" 1
+muffler_n_02 "Clothing" "clothing_n_01 hypernym muffler_n_02 True" 1
+bunk_bed_n_01 "Bunk bed" "bunk_bed_n_01 hyponym bunk_bed_n_01 True" 1
+cathedra_n_01 "Cathedra" "cathedra_n_01 hyponym cathedra_n_01 True" 1
+contrabassoon_n_01 "Musical instrument" "musical_instrument_n_01 hypernym contrabassoon_n_01 True" 1
+acoustic_guitar_n_01 "Acoustic guitar" "acoustic_guitar_n_01 hyponym acoustic_guitar_n_01 True" 1
+spinet_n_02 "Spinet" "spinet_n_02 hyponym spinet_n_02 True" 1
+bathrobe_n_01 "Robe" "robe_n_01 bl bathrobe_n_01 True" 1
+bunk_bed_n_01 "Bow tie" "bow_tie_n_01 hyponym bunk_bed_n_01 False" 2
+highboy_n_01 "Sweat pants" "sweat_pants_n_01 hyponym highboy_n_01 False" 2
+phillips_screwdriver_n_01 "Pear" "pear_n_01 bl phillips_screwdriver_n_01 False" 2
+armchair_n_01 "Musical instrument" "musical_instrument_n_01 hypernym armchair_n_01 False" 2
+nailfile_n_01 "File" "file_n_04 bl nailfile_n_01 True" 1
+grand_piano_n_01 "Church key" "church_key_n_01 hyponym grand_piano_n_01 False" 2
+euphonium_n_01 "Face veil" "face_veil_n_01 hyponym euphonium_n_01 False" 2
+key_lime_n_01 "Edible fruit" "edible_fruit_n_01 hypernym key_lime_n_01 True" 1
+highhat_cymbal_n_01 "Cymbal" "cymbal_n_01 bl highhat_cymbal_n_01 True" 1
+lyre_n_01 "Lyre" "lyre_n_01 hyponym lyre_n_01 True" 1
+cherimoya_n_02 "Custard apple" "custard_apple_n_02 bl cherimoya_n_02 True" 1
+acoustic_guitar_n_01 "Guitar" "guitar_n_01 bl acoustic_guitar_n_01 True" 1
+bosc_n_01 "Pear" "pear_n_01 bl bosc_n_01 True" 1
+sweat_pants_n_01 "Brick trowel" "brick_trowel_n_01 hyponym sweat_pants_n_01 False" 2
+long_johns_n_01 "Clothing" "clothing_n_01 hypernym long_johns_n_01 True" 1
+church_key_n_01 "Bass horn" "bass_horn_n_01 bl church_key_n_01 False" 2
+armchair_n_01 "Furniture" "furniture_n_01 hypernym armchair_n_01 True" 1
+contrabassoon_n_01 "Bassoon" "bassoon_n_01 bl contrabassoon_n_01 True" 1
+bathrobe_n_01 "Bathrobe" "bathrobe_n_01 hyponym bathrobe_n_01 True" 1
+bass_clarinet_n_01 "Can opener" "can_opener_n_01 bl bass_clarinet_n_01 False" 2
+nailfile_n_01 "Nailfile" "nailfile_n_01 hyponym nailfile_n_01 True" 1
+floor_lamp_n_01 "Floor lamp" "floor_lamp_n_01 hyponym floor_lamp_n_01 True" 1
+granadilla_n_04 "Passion fruit" "passion_fruit_n_01 bl granadilla_n_04 True" 1
+bow_tie_n_01 "Bagpipe" "bagpipe_n_01 bl bow_tie_n_01 False" 2
+sultana_n_01 "Grape" "grape_n_01 bl sultana_n_01 True" 1
+granny_smith_n_01 "Hand tool" "hand_tool_n_01 hypernym granny_smith_n_01 False" 2
+love_seat_n_01 "High-hat cymbal" "highhat_cymbal_n_01 hyponym love_seat_n_01 False" 2
+coffee_table_n_01 "Furniture" "furniture_n_01 hypernym coffee_table_n_01 True" 1
+dresser_n_05 "Edible fruit" "edible_fruit_n_01 hypernym dresser_n_05 False" 2
+bongo_n_01 "Coffee table" "coffee_table_n_01 hyponym bongo_n_01 False" 2
+piccolo_n_01 "Musical instrument" "musical_instrument_n_01 hypernym piccolo_n_01 True" 1
+sackbut_n_01 "Trombone" "trombone_n_01 bl sackbut_n_01 True" 1
+highhat_cymbal_n_01 "Chair" "chair_n_01 bl highhat_cymbal_n_01 False" 2
+dresser_n_05 "Cabinet" "cabinet_n_01 bl dresser_n_05 True" 1
+musette_n_01 "Bagpipe" "bagpipe_n_01 bl musette_n_01 True" 1
+bongo_n_01 "Musical instrument" "musical_instrument_n_01 hypernym bongo_n_01 True" 1
+church_key_n_01 "Can opener" "can_opener_n_01 bl church_key_n_01 True" 1
+putty_knife_n_01 "Sultana" "sultana_n_01 hyponym putty_knife_n_01 False" 2
+bikini_n_02 "Clothing" "clothing_n_01 hypernym bikini_n_02 True" 1
+cathedra_n_01 "Throne" "throne_n_01 bl cathedra_n_01 True" 1
+pew_n_01 "Nailfile" "nailfile_n_01 hyponym pew_n_01 False" 2
+cathedra_n_01 "Contrabassoon" "contrabassoon_n_01 hyponym cathedra_n_01 False" 2
+watermelon_n_02 "Sackbut" "sackbut_n_01 hyponym watermelon_n_02 False" 2
+face_veil_n_01 "Key lime" "key_lime_n_01 hyponym face_veil_n_01 False" 2
+coffee_table_n_01 "Coffee table" "coffee_table_n_01 hyponym coffee_table_n_01 True" 1
+cradle_n_01 "Putty knife" "putty_knife_n_01 hyponym cradle_n_01 False" 2
+damson_n_01 "Damson" "damson_n_01 hyponym damson_n_01 True" 1
+spinet_n_02 "Clothing" "clothing_n_01 hypernym spinet_n_02 False" 2
+heart_cherry_n_02 "Heart cherry" "heart_cherry_n_02 hyponym heart_cherry_n_02 True" 1
+damson_n_01 "Clothing" "clothing_n_01 hypernym damson_n_01 False" 2
+cape_n_02 "Clothing" "clothing_n_01 hypernym cape_n_02 True" 1
+grand_piano_n_01 "Piano" "piano_n_01 bl grand_piano_n_01 True" 1
+love_seat_n_01 "Carpenters hammer" "carpenters_hammer_n_01 hyponym love_seat_n_01 False" 2
+raincoat_n_01 "Hand tool" "hand_tool_n_01 hypernym raincoat_n_01 False" 2
+bradawl_n_01 "Love seat" "love_seat_n_01 hyponym bradawl_n_01 False" 2
+spade_n_02 "Bass clarinet" "bass_clarinet_n_01 hyponym spade_n_02 False" 2
+tank_top_n_01 "Shirt" "shirt_n_01 bl tank_top_n_01 True" 1
+carpenters_square_n_01 "Hand tool" "hand_tool_n_01 hypernym carpenters_square_n_01 True" 1
+bosc_n_01 "Clothing" "clothing_n_01 hypernym bosc_n_01 False" 2
+heart_cherry_n_02 "Cathedra" "cathedra_n_01 hyponym heart_cherry_n_02 False" 2
+piccolo_n_01 "Hand tool" "hand_tool_n_01 hypernym piccolo_n_01 False" 2
+cape_n_02 "Awl" "awl_n_01 bl cape_n_02 False" 2
+floor_lamp_n_01 "Pliers" "pliers_n_01 bl floor_lamp_n_01 False" 2
+bradawl_n_01 "Miniskirt" "miniskirt_n_01 hyponym bradawl_n_01 False" 2
+cathedra_n_01 "Scarf" "scarf_n_01 bl cathedra_n_01 False" 2
+musette_n_01 "Furniture" "furniture_n_01 hypernym musette_n_01 False" 2
+bitter_orange_n_02 "Orange" "orange_n_01 bl bitter_orange_n_02 True" 1
+piccolo_n_01 "Flute" "flute_n_01 bl piccolo_n_01 True" 1
+armchair_n_01 "Mandarin" "mandarin_n_05 bl armchair_n_01 False" 2
+spinet_n_02 "Harpsichord" "harpsichord_n_01 bl spinet_n_02 True" 1
+bunk_bed_n_01 "Furniture" "furniture_n_01 hypernym bunk_bed_n_01 True" 1
+brick_trowel_n_01 "Bosc" "bosc_n_01 hyponym brick_trowel_n_01 False" 2
+turtleneck_n_01 "Bed" "bed_n_01 bl turtleneck_n_01 False" 2
+blazer_n_01 "Jacket" "jacket_n_01 bl blazer_n_01 True" 1
+bongo_n_01 "Cloak" "cloak_n_02 bl bongo_n_01 False" 2
+cradle_n_01 "Edible fruit" "edible_fruit_n_01 hypernym cradle_n_01 False" 2
+piccolo_n_01 "Edible fruit" "edible_fruit_n_01 hypernym piccolo_n_01 False" 2
+face_veil_n_01 "Face veil" "face_veil_n_01 hyponym face_veil_n_01 True" 1
+lyre_n_01 "Trouser" "trouser_n_01 bl lyre_n_01 False" 2
+brick_trowel_n_01 "Hand tool" "hand_tool_n_01 hypernym brick_trowel_n_01 True" 1
+bass_clarinet_n_01 "Bass clarinet" "bass_clarinet_n_01 hyponym bass_clarinet_n_01 True" 1
+euphonium_n_01 "Euphonium" "euphonium_n_01 hyponym euphonium_n_01 True" 1
+euphonium_n_01 "Clothing" "clothing_n_01 hypernym euphonium_n_01 False" 2
+bitter_orange_n_02 "Musical instrument" "musical_instrument_n_01 hypernym bitter_orange_n_02 False" 2
+tank_top_n_01 "Tank top" "tank_top_n_01 hyponym tank_top_n_01 True" 1
+bunk_bed_n_01 "Cymbal" "cymbal_n_01 bl bunk_bed_n_01 False" 2
+needlenose_pliers_n_01 "Musical instrument" "musical_instrument_n_01 hypernym needlenose_pliers_n_01 False" 2
+damson_n_01 "Smooth plane" "smooth_plane_n_01 hyponym damson_n_01 False" 2
+handsaw_n_01 "Furniture" "furniture_n_01 hypernym handsaw_n_01 False" 2
+piccolo_n_01 "Piccolo" "piccolo_n_01 hyponym piccolo_n_01 True" 1
+crescent_wrench_n_01 "Hand tool" "hand_tool_n_01 hypernym crescent_wrench_n_01 True" 1
+cape_n_02 "Trowel" "trowel_n_01 bl cape_n_02 False" 2
+crescent_wrench_n_01 "Cherimoya" "cherimoya_n_02 hyponym crescent_wrench_n_01 False" 2
+floor_lamp_n_01 "Lime" "lime_n_06 bl floor_lamp_n_01 False" 2
+stradavarius_n_01 "Musical instrument" "musical_instrument_n_01 hypernym stradavarius_n_01 True" 1
+bass_clarinet_n_01 "Bradawl" "bradawl_n_01 hyponym bass_clarinet_n_01 False" 2
+sackbut_n_01 "Suit" "suit_n_01 bl sackbut_n_01 False" 2
+sweat_pants_n_01 "Clothing" "clothing_n_01 hypernym sweat_pants_n_01 True" 1
+carpenters_hammer_n_01 "Granadilla" "granadilla_n_04 hyponym carpenters_hammer_n_01 False" 2
+crescent_wrench_n_01 "Crescent wrench" "crescent_wrench_n_01 hyponym crescent_wrench_n_01 True" 1
+turtleneck_n_01 "Furniture" "furniture_n_01 hypernym turtleneck_n_01 False" 2
+musette_n_01 "Phillips screwdriver" "phillips_screwdriver_n_01 hyponym musette_n_01 False" 2
+cherimoya_n_02 "Sweater" "sweater_n_01 bl cherimoya_n_02 False" 2
+clementine_n_02 "Throne" "throne_n_01 bl clementine_n_02 False" 2
+uplift_n_02 "Clothing" "clothing_n_01 hypernym uplift_n_02 True" 1
+bow_tie_n_01 "Bow tie" "bow_tie_n_01 hyponym bow_tie_n_01 True" 1
+sultana_n_01 "Blazer" "blazer_n_01 hyponym sultana_n_01 False" 2
+bikini_n_02 "Swimsuit" "swimsuit_n_01 bl bikini_n_02 True" 1
+damson_n_01 "Edible fruit" "edible_fruit_n_01 hypernym damson_n_01 True" 1
+raincoat_n_01 "Hand tool" "hand_tool_n_01 hypernym raincoat_n_01 False" 2
+muffler_n_02 "Wrench" "wrench_n_03 bl muffler_n_02 False" 2
+armoire_n_01 "Armoire" "armoire_n_01 hyponym armoire_n_01 True" 1
+turtleneck_n_01 "Sweater" "sweater_n_01 bl turtleneck_n_01 True" 1
+pew_n_01 "Pew" "pew_n_01 hyponym pew_n_01 True" 1
+bradawl_n_01 "Hand tool" "hand_tool_n_01 hypernym bradawl_n_01 True" 1
+bosc_n_01 "Edible fruit" "edible_fruit_n_01 hypernym bosc_n_01 True" 1
+putty_knife_n_01 "Musical instrument" "musical_instrument_n_01 hypernym putty_knife_n_01 False" 2
+smooth_plane_n_01 "Violin" "violin_n_01 bl smooth_plane_n_01 False" 2
+euphonium_n_01 "Screwdriver" "screwdriver_n_01 bl euphonium_n_01 False" 2
+heart_cherry_n_02 "Pew" "pew_n_01 hyponym heart_cherry_n_02 False" 2
+bass_clarinet_n_01 "Musical instrument" "musical_instrument_n_01 hypernym bass_clarinet_n_01 True" 1
+lyre_n_01 "Musical instrument" "musical_instrument_n_01 hypernym lyre_n_01 True" 1
+heart_cherry_n_02 "Edible fruit" "edible_fruit_n_01 hypernym heart_cherry_n_02 True" 1
+floor_lamp_n_01 "Furniture" "furniture_n_01 hypernym floor_lamp_n_01 True" 1
+acoustic_guitar_n_01 "Musical instrument" "musical_instrument_n_01 hypernym acoustic_guitar_n_01 True" 1
+smooth_plane_n_01 "Hand tool" "hand_tool_n_01 hypernym smooth_plane_n_01 True" 1
+nailfile_n_01 "Furniture" "furniture_n_01 hypernym nailfile_n_01 False" 2
+sultana_n_01 "Sultana" "sultana_n_01 hyponym sultana_n_01 True" 1
+spade_n_02 "Spade" "spade_n_02 hyponym spade_n_02 True" 1
+clementine_n_02 "Clementine" "clementine_n_02 hyponym clementine_n_02 True" 1
+spinet_n_02 "Hand tool" "hand_tool_n_01 hypernym spinet_n_02 False" 2
+clementine_n_02 "Edible fruit" "edible_fruit_n_01 hypernym clementine_n_02 True" 1
+church_key_n_01 "Piccolo" "piccolo_n_01 hyponym church_key_n_01 False" 2
+long_johns_n_01 "Underwear" "underwear_n_01 bl long_johns_n_01 True" 1
+bongo_n_01 "Drum" "drum_n_01 bl bongo_n_01 True" 1
+face_veil_n_01 "Clothing" "clothing_n_01 hypernym face_veil_n_01 True" 1
+heckelphone_n_01 "Clothing" "clothing_n_01 hypernym heckelphone_n_01 False" 2
+love_seat_n_01 "Furniture" "furniture_n_01 hypernym love_seat_n_01 True" 1
+highboy_n_01 "Chest of drawers" "chest_of_drawers_n_01 bl highboy_n_01 True" 1
+sultana_n_01 "Edible fruit" "edible_fruit_n_01 hypernym sultana_n_01 True" 1
+coffee_table_n_01 "Granny smith" "granny_smith_n_01 hyponym coffee_table_n_01 False" 2
+phillips_screwdriver_n_01 "Phillips screwdriver" "phillips_screwdriver_n_01 hyponym phillips_screwdriver_n_01 True" 1
+raincoat_n_01 "Raincoat" "raincoat_n_01 hyponym raincoat_n_01 True" 1
+bunk_bed_n_01 "Bed" "bed_n_01 bl bunk_bed_n_01 True" 1
+bow_tie_n_01 "Clothing" "clothing_n_01 hypernym bow_tie_n_01 True" 1
+blazer_n_01 "Crescent wrench" "crescent_wrench_n_01 hyponym blazer_n_01 False" 2
+clementine_n_02 "Swimsuit" "swimsuit_n_01 bl clementine_n_02 False" 2
+spade_n_02 "Shovel" "shovel_n_01 bl spade_n_02 True" 1
+stradavarius_n_01 "Stradavarius" "stradavarius_n_01 hyponym stradavarius_n_01 True" 1
+muffler_n_02 "Heckelphone" "heckelphone_n_01 hyponym muffler_n_02 False" 2
+bitter_orange_n_02 "Bitter orange" "bitter_orange_n_02 hyponym bitter_orange_n_02 True" 1
+euphonium_n_01 "Musical instrument" "musical_instrument_n_01 hypernym euphonium_n_01 True" 1
+acoustic_guitar_n_01 "Hand tool" "hand_tool_n_01 hypernym acoustic_guitar_n_01 False" 2
+writing_desk_n_02 "Desk" "desk_n_01 bl writing_desk_n_02 True" 1
+stradavarius_n_01 "Watermelon" "watermelon_n_02 hyponym stradavarius_n_01 False" 2
+coffee_table_n_01 "Spatula" "spatula_n_02 bl coffee_table_n_01 False" 2
+bow_tie_n_01 "Piano" "piano_n_01 bl bow_tie_n_01 False" 2
+key_lime_n_01 "Clothing" "clothing_n_01 hypernym key_lime_n_01 False" 2
+spinet_n_02 "Musical instrument" "musical_instrument_n_01 hypernym spinet_n_02 True" 1
+face_veil_n_01 "Harpsichord" "harpsichord_n_01 bl face_veil_n_01 False" 2
+uplift_n_02 "Brassiere" "brassiere_n_01 bl uplift_n_02 True" 1
+clementine_n_02 "Armoire" "armoire_n_01 hyponym clementine_n_02 False" 2
+key_lime_n_01 "Clothing" "clothing_n_01 hypernym key_lime_n_01 False" 2
+brick_trowel_n_01 "Uplift" "uplift_n_02 hyponym brick_trowel_n_01 False" 2
+musette_n_01 "Furniture" "furniture_n_01 hypernym musette_n_01 False" 2
+bikini_n_02 "Bikini" "bikini_n_02 hyponym bikini_n_02 True" 1
+writing_desk_n_02 "Furniture" "furniture_n_01 hypernym writing_desk_n_02 True" 1
+coffee_table_n_01 "Table" "table_n_02 bl coffee_table_n_01 True" 1
+cradle_n_01 "Cradle" "cradle_n_01 hyponym cradle_n_01 True" 1
+dresser_n_05 "Musical instrument" "musical_instrument_n_01 hypernym dresser_n_05 False" 2
+cradle_n_01 "File" "file_n_04 bl cradle_n_01 False" 2
+love_seat_n_01 "Necktie" "necktie_n_01 bl love_seat_n_01 False" 2
+church_key_n_01 "Furniture" "furniture_n_01 hypernym church_key_n_01 False" 2
+brick_trowel_n_01 "Trowel" "trowel_n_01 bl brick_trowel_n_01 True" 1
+nailfile_n_01 "Clothing" "clothing_n_01 hypernym nailfile_n_01 False" 2
+long_johns_n_01 "Long johns" "long_johns_n_01 hyponym long_johns_n_01 True" 1
+phillips_screwdriver_n_01 "Screwdriver" "screwdriver_n_01 bl phillips_screwdriver_n_01 True" 1
+watermelon_n_02 "Edible fruit" "edible_fruit_n_01 hypernym watermelon_n_02 True" 1
+key_lime_n_01 "Lime" "lime_n_06 bl key_lime_n_01 True" 1
+carpenters_hammer_n_01 "Hammer" "hammer_n_02 bl carpenters_hammer_n_01 True" 1
+blazer_n_01 "Lamp" "lamp_n_02 bl blazer_n_01 False" 2
+needlenose_pliers_n_01 "Needlenose pliers" "needlenose_pliers_n_01 hyponym needlenose_pliers_n_01 True" 1
+armchair_n_01 "Armchair" "armchair_n_01 hyponym armchair_n_01 True" 1
+carpenters_square_n_01 "Writing desk" "writing_desk_n_02 hyponym carpenters_square_n_01 False" 2
+granadilla_n_04 "Shirt" "shirt_n_01 bl granadilla_n_04 False" 2
+coffee_table_n_01 "Muffler" "muffler_n_02 hyponym coffee_table_n_01 False" 2
+sweat_pants_n_01 "Trouser" "trouser_n_01 bl sweat_pants_n_01 True" 1
+blazer_n_01 "Clothing" "clothing_n_01 hypernym blazer_n_01 True" 1
+armoire_n_01 "Musical instrument" "musical_instrument_n_01 hypernym armoire_n_01 False" 2
+grand_piano_n_01 "Carpenters square" "carpenters_square_n_01 hyponym grand_piano_n_01 False" 2
+raincoat_n_01 "Coat" "coat_n_01 bl raincoat_n_01 True" 1
+key_lime_n_01 "Key lime" "key_lime_n_01 hyponym key_lime_n_01 True" 1
+carpenters_square_n_01 "Musical instrument" "musical_instrument_n_01 hypernym carpenters_square_n_01 False" 2
+phillips_screwdriver_n_01 "Brassiere" "brassiere_n_01 bl phillips_screwdriver_n_01 False" 2
+sweat_pants_n_01 "Sweat pants" "sweat_pants_n_01 hyponym sweat_pants_n_01 True" 1
+lyre_n_01 "Harp" "harp_n_01 bl lyre_n_01 True" 1
+carpenters_square_n_01 "Bongo" "bongo_n_01 hyponym carpenters_square_n_01 False" 2
+miniskirt_n_01 "Oboe" "oboe_n_01 bl miniskirt_n_01 False" 2
+granny_smith_n_01 "Granny smith" "granny_smith_n_01 hyponym granny_smith_n_01 True" 1
+miniskirt_n_01 "Skirt" "skirt_n_02 bl miniskirt_n_01 True" 1
+musette_n_01 "Musette" "musette_n_01 hyponym musette_n_01 True" 1
+brick_trowel_n_01 "Cherry" "cherry_n_03 bl brick_trowel_n_01 False" 2
+bitter_orange_n_02 "Jacket" "jacket_n_01 bl bitter_orange_n_02 False" 2
+damson_n_01 "Plum" "plum_n_02 bl damson_n_01 True" 1
+handsaw_n_01 "Coat" "coat_n_01 bl handsaw_n_01 False" 2
+bathrobe_n_01 "Clothing" "clothing_n_01 hypernym bathrobe_n_01 True" 1
+highhat_cymbal_n_01 "Orange" "orange_n_01 bl highhat_cymbal_n_01 False" 2
+cherimoya_n_02 "Hand tool" "hand_tool_n_01 hypernym cherimoya_n_02 False" 2
+miniskirt_n_01 "Miniskirt" "miniskirt_n_01 hyponym miniskirt_n_01 True" 1
+cape_n_02 "Musical instrument" "musical_instrument_n_01 hypernym cape_n_02 False" 2
+bosc_n_01 "Furniture" "furniture_n_01 hypernym bosc_n_01 False" 2
+heckelphone_n_01 "Damson" "damson_n_01 hyponym heckelphone_n_01 False" 2
+pew_n_01 "Bench" "bench_n_01 bl pew_n_01 True" 1
+miniskirt_n_01 "Campstool" "campstool_n_01 hyponym miniskirt_n_01 False" 2
+brick_trowel_n_01 "Brick trowel" "brick_trowel_n_01 hyponym brick_trowel_n_01 True" 1
+bradawl_n_01 "Awl" "awl_n_01 bl bradawl_n_01 True" 1
+armchair_n_01 "Chair" "chair_n_01 bl armchair_n_01 True" 1
+sweat_pants_n_01 "Passion fruit" "passion_fruit_n_01 bl sweat_pants_n_01 False" 2
+granadilla_n_04 "Baby bed" "baby_bed_n_01 bl granadilla_n_04 False" 2
+sackbut_n_01 "Square" "square_n_08 bl sackbut_n_01 False" 2
+heckelphone_n_01 "Oboe" "oboe_n_01 bl heckelphone_n_01 True" 1
+acoustic_guitar_n_01 "Cape" "cape_n_02 hyponym acoustic_guitar_n_01 False" 2
+bow_tie_n_01 "Necktie" "necktie_n_01 bl bow_tie_n_01 True" 1
+key_lime_n_01 "Plane" "plane_n_05 bl key_lime_n_01 False" 2
+cape_n_02 "Cape" "cape_n_02 hyponym cape_n_02 True" 1
+spade_n_02 "Plum" "plum_n_02 bl spade_n_02 False" 2
+pew_n_01 "Furniture" "furniture_n_01 hypernym pew_n_01 True" 1
+heckelphone_n_01 "Underwear" "underwear_n_01 bl heckelphone_n_01 False" 2
+musette_n_01 "Musical instrument" "musical_instrument_n_01 hypernym musette_n_01 True" 1
+granny_smith_n_01 "Apple" "apple_n_01 bl granny_smith_n_01 True" 1
+bass_clarinet_n_01 "Edible fruit" "edible_fruit_n_01 hypernym bass_clarinet_n_01 False" 2
+bikini_n_02 "Musical instrument" "musical_instrument_n_01 hypernym bikini_n_02 False" 2
+sackbut_n_01 "Clothing" "clothing_n_01 hypernym sackbut_n_01 False" 2
+handsaw_n_01 "Handsaw" "handsaw_n_01 hyponym handsaw_n_01 True" 1
+turtleneck_n_01 "Edible fruit" "edible_fruit_n_01 hypernym turtleneck_n_01 False" 2
+tank_top_n_01 "Floor lamp" "floor_lamp_n_01 hyponym tank_top_n_01 False" 2
+bongo_n_01 "Bathrobe" "bathrobe_n_01 hyponym bongo_n_01 False" 2
+armoire_n_01 "Furniture" "furniture_n_01 hypernym armoire_n_01 True" 1
+handsaw_n_01 "Hand tool" "hand_tool_n_01 hypernym handsaw_n_01 True" 1
+putty_knife_n_01 "Hand tool" "hand_tool_n_01 hypernym putty_knife_n_01 True" 1
+grand_piano_n_01 "Musical instrument" "musical_instrument_n_01 hypernym grand_piano_n_01 True" 1
+watermelon_n_02 "Bikini" "bikini_n_02 hyponym watermelon_n_02 False" 2
+highboy_n_01 "Highboy" "highboy_n_01 hyponym highboy_n_01 True" 1
+campstool_n_01 "Lyre" "lyre_n_01 hyponym campstool_n_01 False" 2
+grand_piano_n_01 "Long johns" "long_johns_n_01 hyponym grand_piano_n_01 False" 2
+needlenose_pliers_n_01 "Hand tool" "hand_tool_n_01 hypernym needlenose_pliers_n_01 True" 1
+stradavarius_n_01 "Hand tool" "hand_tool_n_01 hypernym stradavarius_n_01 False" 2
+spade_n_02 "Euphonium" "euphonium_n_01 hyponym spade_n_02 False" 2
+cradle_n_01 "Baby bed" "baby_bed_n_01 bl cradle_n_01 True" 1
+watermelon_n_02 "Melon" "melon_n_01 bl watermelon_n_02 True" 1
+smooth_plane_n_01 "Edible fruit" "edible_fruit_n_01 hypernym smooth_plane_n_01 False" 2
+face_veil_n_01 "Head covering" "veil_n_01 bl face_veil_n_01 True" 1
+granny_smith_n_01 "Edible fruit" "edible_fruit_n_01 hypernym granny_smith_n_01 True" 1
+nailfile_n_01 "Hand tool" "hand_tool_n_01 hypernym nailfile_n_01 True" 1
+writing_desk_n_02 "Musical instrument" "musical_instrument_n_01 hypernym writing_desk_n_02 False" 2
+sackbut_n_01 "Sackbut" "sackbut_n_01 hyponym sackbut_n_01 True" 1
+business_suit_n_01 "Business suit" "business_suit_n_01 hyponym business_suit_n_01 True" 1
+stradavarius_n_01 "Violin" "violin_n_01 bl stradavarius_n_01 True" 1
+cherimoya_n_02 "Cherimoya" "cherimoya_n_02 hyponym cherimoya_n_02 True" 1
+granny_smith_n_01 "Furniture" "furniture_n_01 hypernym granny_smith_n_01 False" 2
+uplift_n_02 "Bitter orange" "bitter_orange_n_02 hyponym uplift_n_02 False" 2
+long_johns_n_01 "Shovel" "shovel_n_01 bl long_johns_n_01 False" 2
+euphonium_n_01 "Bass horn" "bass_horn_n_01 bl euphonium_n_01 True" 1
+long_johns_n_01 "Custard apple" "custard_apple_n_02 bl long_johns_n_01 False" 2
+miniskirt_n_01 "Clothing" "clothing_n_01 hypernym miniskirt_n_01 True" 1
+acoustic_guitar_n_01 "Edible fruit" "edible_fruit_n_01 hypernym acoustic_guitar_n_01 False" 2
+contrabassoon_n_01 "Hand tool" "hand_tool_n_01 hypernym contrabassoon_n_01 False" 2
+crescent_wrench_n_01 "Sofa" "sofa_n_01 bl crescent_wrench_n_01 False" 2
+carpenters_hammer_n_01 "Clothing" "clothing_n_01 hypernym carpenters_hammer_n_01 False" 2
+smooth_plane_n_01 "Smooth plane" "smooth_plane_n_01 hyponym smooth_plane_n_01 True" 1
+business_suit_n_01 "Clothing" "clothing_n_01 hypernym business_suit_n_01 True" 1
+business_suit_n_01 "Musette" "musette_n_01 hyponym business_suit_n_01 False" 2
+phillips_screwdriver_n_01 "Skirt" "skirt_n_02 bl phillips_screwdriver_n_01 False" 2
+highhat_cymbal_n_01 "High-hat cymbal" "highhat_cymbal_n_01 hyponym highhat_cymbal_n_01 True" 1
+lyre_n_01 "Table" "table_n_02 bl lyre_n_01 False" 2
+campstool_n_01 "Stool" "stool_n_01 bl campstool_n_01 True" 1
+love_seat_n_01 "Sofa" "sofa_n_01 bl love_seat_n_01 True" 1
+needlenose_pliers_n_01 "Edible fruit" "edible_fruit_n_01 hypernym needlenose_pliers_n_01 False" 2
+grand_piano_n_01 "Grand piano" "grand_piano_n_01 hyponym grand_piano_n_01 True" 1
+sultana_n_01 "Robe" "robe_n_01 bl sultana_n_01 False" 2
+handsaw_n_01 "Saw" "saw_n_02 bl handsaw_n_01 True" 1
+carpenters_square_n_01 "Square" "square_n_08 bl carpenters_square_n_01 True" 1
+blazer_n_01 "Blazer" "blazer_n_01 hyponym blazer_n_01 True" 1
+long_johns_n_01 "Furniture" "furniture_n_01 hypernym long_johns_n_01 False" 2
+campstool_n_01 "Furniture" "furniture_n_01 hypernym campstool_n_01 True" 1
+heckelphone_n_01 "Musical instrument" "musical_instrument_n_01 hypernym heckelphone_n_01 True" 1
+business_suit_n_01 "Handsaw" "handsaw_n_01 hyponym business_suit_n_01 False" 2
+bradawl_n_01 "Drum" "drum_n_01 bl bradawl_n_01 False" 2
+bosc_n_01 "Bosc" "bosc_n_01 hyponym bosc_n_01 True" 1
+watermelon_n_02 "Watermelon" "watermelon_n_02 hyponym watermelon_n_02 True" 1
+turtleneck_n_01 "Clothing" "clothing_n_01 hypernym turtleneck_n_01 True" 1
+clementine_n_02 "Mandarin" "mandarin_n_05 bl clementine_n_02 True" 1
+blazer_n_01 "Spinet" "spinet_n_02 hyponym blazer_n_01 False" 2
+raincoat_n_01 "Clementine" "clementine_n_02 hyponym raincoat_n_01 False" 2
+writing_desk_n_02 "Harp" "harp_n_01 bl writing_desk_n_02 False" 2
+bitter_orange_n_02 "Dresser" "dresser_n_05 hyponym bitter_orange_n_02 False" 2
+campstool_n_01 "Campstool" "campstool_n_01 hyponym campstool_n_01 True" 1
+putty_knife_n_01 "Spatula" "spatula_n_02 bl putty_knife_n_01 True" 1
+cathedra_n_01 "Clothing" "clothing_n_01 hypernym cathedra_n_01 False" 2
+smooth_plane_n_01 "Desk" "desk_n_01 bl smooth_plane_n_01 False" 2
+contrabassoon_n_01 "Armchair" "armchair_n_01 hyponym contrabassoon_n_01 False" 2
+dresser_n_05 "Furniture" "furniture_n_01 hypernym dresser_n_05 True" 1
+bathrobe_n_01 "Highboy" "highboy_n_01 hyponym bathrobe_n_01 False" 2
+uplift_n_02 "Hand tool" "hand_tool_n_01 hypernym uplift_n_02 False" 2
+floor_lamp_n_01 "Apple" "apple_n_01 bl floor_lamp_n_01 False" 2
+sackbut_n_01 "Musical instrument" "musical_instrument_n_01 hypernym sackbut_n_01 True" 1
+smooth_plane_n_01 "Plane" "plane_n_05 bl smooth_plane_n_01 True" 1
+cape_n_02 "Cloak" "cloak_n_02 bl cape_n_02 True" 1
+pew_n_01 "Clothing" "clothing_n_01 hypernym pew_n_01 False" 2
+handsaw_n_01 "Acoustic guitar" "acoustic_guitar_n_01 hyponym handsaw_n_01 False" 2
+dresser_n_05 "Clothing" "clothing_n_01 hypernym dresser_n_05 False" 2
+armoire_n_01 "Clothing" "clothing_n_01 hypernym armoire_n_01 False" 2
+campstool_n_01 "Grape" "grape_n_01 bl campstool_n_01 False" 2

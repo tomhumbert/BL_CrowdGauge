@@ -72,21 +72,30 @@ def data_from_exp_files(file_path):
             partic_dict['correct_ans'].append(fail_count[0][1])
             partic_dict['wrong_ans'].append(fail_count[1][1])
             partic_dict['rate'].append(np.round((fail_count[1][1]/396)*100)/100)            
-            exp_df.to_csv(os.path.join('experiment_data_computed', f"data_{participant_id}.csv"))
+            #exp_df.to_csv(os.path.join('experiment_data_computed', f"data_{participant_id}.csv"))
             participant_experiment_results.append(exp_df)
         participant_info = pd.DataFrame(partic_dict)
-        participant_info.to_csv(os.path.join('experiment_data_computed', f"data_participants.csv"))
+        #participant_info.to_csv(os.path.join('experiment_data_computed', f"data_participants.csv"))
     return participant_experiment_results, participant_info
 
 def main():
-    cwd = os.getcwd()
-    results = os.path.join(cwd,'p1_data')
-    all_exp_results, participant_data = data_from_exp_files(results)
+    cwd = os.path.join(os.getcwd(), "Past_experiments")
+    # This needs to be set accordingly
+    EXPERIMENT_DIRECTORY = "Final_experiment"
+    cwd = os.path.join(cwd, EXPERIMENT_DIRECTORY)
+
+    collected_data = os.path.join(cwd, 'collected_data')
+
+    all_exp_results, participant_data = data_from_exp_files(collected_data)
     
-    # Now creating a data_set by converging all participants times
+    # Now creating a data_set by concatenating all participants times
 
     all_exp_results_concat = pd.concat(all_exp_results)
-    all_exp_results_concat.to_csv(os.path.join('p1_computed', f"data_all_ans.csv"))
+
+    computed_data_folder = os.path.join(cwd, 'computed_data')
+    if not os.path.exists(computed_data_folder):
+        os.mkdir(computed_data_folder)
+    all_exp_results_concat.to_csv(os.path.join(computed_data_folder, f"data_all_ans.csv"))
 
     return None
 

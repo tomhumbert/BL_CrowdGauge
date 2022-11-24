@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+acoustic_guitar_n_01 "Acoustic guitar" "acoustic_guitar_n_01 hyponym acoustic_guitar_n_01 True" 1
+spinet_n_02 "Spinet" "spinet_n_02 hyponym spinet_n_02 True" 1
+bathrobe_n_01 "Robe" "robe_n_01 bl bathrobe_n_01 True" 1
+bunk_bed_n_01 "Bow tie" "bow_tie_n_01 hyponym bunk_bed_n_01 False" 2
+highboy_n_01 "Sweat pants" "sweat_pants_n_01 hyponym highboy_n_01 False" 2
+phillips_screwdriver_n_01 "Pear" "pear_n_01 bl phillips_screwdriver_n_01 False" 2
+armchair_n_01 "Musical instrument" "musical_instrument_n_01 hypernym armchair_n_01 False" 2
+nailfile_n_01 "File" "file_n_04 bl nailfile_n_01 True" 1
+grand_piano_n_01 "Church key" "church_key_n_01 hyponym grand_piano_n_01 False" 2
+euphonium_n_01 "Face veil" "face_veil_n_01 hyponym euphonium_n_01 False" 2
+key_lime_n_01 "Edible fruit" "edible_fruit_n_01 hypernym key_lime_n_01 True" 1
+highhat_cymbal_n_01 "Cymbal" "cymbal_n_01 bl highhat_cymbal_n_01 True" 1
+lyre_n_01 "Lyre" "lyre_n_01 hyponym lyre_n_01 True" 1
+cherimoya_n_02 "Custard apple" "custard_apple_n_02 bl cherimoya_n_02 True" 1
+acoustic_guitar_n_01 "Guitar" "guitar_n_01 bl acoustic_guitar_n_01 True" 1
+bosc_n_01 "Pear" "pear_n_01 bl bosc_n_01 True" 1
+sweat_pants_n_01 "Brick trowel" "brick_trowel_n_01 hyponym sweat_pants_n_01 False" 2
+long_johns_n_01 "Clothing" "clothing_n_01 hypernym long_johns_n_01 True" 1
+church_key_n_01 "Bass horn" "bass_horn_n_01 bl church_key_n_01 False" 2
+armchair_n_01 "Furniture" "furniture_n_01 hypernym armchair_n_01 True" 1

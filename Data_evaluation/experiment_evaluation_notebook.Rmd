@@ -31,7 +31,7 @@ old <- theme_set(theme_stata())
 #### Set path to experiment results file here (generated from python script) ####
 #################################################################################
 
-exp_results <- read_csv("../Past_experiments/Pilot2/computed_data/data_all_ans.csv",
+exp_results <- read_csv("../Past_experiments/Final_experiment/computed_data/data_all_ans.csv",
                         col_names = c("index", "c_name", "img", "lvl", "branch", 
                                       "stim_type", "participant_id", "accuracy", "react_time"),
                         col_types = cols('i','c','f','f','f','l','c','n','n'),
@@ -102,72 +102,64 @@ branch_ov_plot
 
 ## Do reaction times and accuracies improve over trials?
 
-```{r}
+```{r fig.height=2, fig.width=6.5}
 participant_paths <- exp_results[c("p_id", "accuracy", "react_time")] 
-
 acceptable_acc <- 0.85
 
-#creation of df per participant
-p_dfs <- hash()
-for(i in 1:p_num){
-  p_dfs[[paste("p",i, sep="")]] <- filter(participant_paths, p_id==i)
-}
+trials <- c(1:rows*0)
+cumul_rt<- c(1:rows*0)
+cumul_rt_mean<- c(1:rows*0)
 
-cumul_acc <- c(1:stim_num*0)
-cumul_acc_mean <- c(1:stim_num*0)
-cumul_rt <- c(1:stim_num*0)
-cumul_rt_mean <- c(1:stim_num*0)
-trials <- c(1:stim_num)
-
-participant_paths$trials <- sort(c((1:rows)%%stim_num)+1)
-
-for(i in 1:p_num){
-  part = paste("p",i, sep="")
-  part_df <- p_dfs[[part]]
+for(i in 0:(p_num-1)){
+  rt_sum <- 0
   for(j in 1:stim_num){
-    if(j>1){
-      cumul_acc[j] <- cumul_acc[j-1] + part_df$accuracy[j]
-      cumul_rt[j] <- cumul_rt[j-1] + part_df$react_time[j]
-    } else {
-      cumul_acc[j] <- part_df$accuracy[j]
-      cumul_rt[j] <- part_df$react_time[j]
+    index = (i*stim_num)+j
+    if(j == 1){
+      rt_sum = participant_paths$react_time[index]
     }
-    cumul_acc_mean[j] <- cumul_acc[j]/j
-    cumul_rt_mean[j] <- cumul_rt[j]/j
+    else{
+      rt_sum = rt_sum + participant_paths$react_time[index]
+    }
+    cumul_rt[index] = rt_sum
+    trials[index] = j
+    cumul_rt_mean[index] = rt_sum/j
   }
-  p_dfs[[part]]$cumul_acc_mean <- cumul_acc_mean
-  p_dfs[[part]]$cumul_rt_mean <- cumul_rt_mean
-  
 }
 
-participant_acc_over_time <- ggplot(participant_paths, aes(x=trials, y=cumul_acc_mean))+
-  geom_hline(yintercept = acc_mean, color="#c0c0c0") 
-participant_rt_over_time <- ggplot()+
-  geom_hline(yintercept = rt_mean, color="#c0c0c0") 
+participant_paths$cumul_rt <- cumul_rt/1000
+participant_paths$cumul_rt_mean <- cumul_rt_mean/1000
+participant_paths$trials <- trials
 
-for(p in keys(p_dfs)){
-  pp <- p_dfs[[p]]
-  participant_acc_over_time <- participant_acc_over_time + 
-    geom_line(pp, mapping=aes(x=trials, y=cumul_acc_mean, color=p_id))
-  participant_rt_over_time <- participant_rt_over_time + 
-    geom_line(pp, mapping=aes(x=trials, y=cumul_rt_mean, color=p_id))
-}
+#participant_acc_over_time <- ggplot(participant_paths, aes(x=trials, y=cumul_acc_mean, color = p_id))+
+#  geom_hline(yintercept = acc_mean, color="#c0c0c0")
 
-participant_acc_over_time <- participant_acc_over_time +
-  scale_y_continuous(name = "Mean accuracy", n.breaks = 5, labels = scales::percent) +
-  scale_x_continuous(name="Number of trials",n.breaks=15)+
-  theme(legend.position = 0, axis.title.x = element_blank(), axis.text.y = element_text(angle=0) ) +
-  coord_cartesian(ylim=c(0.55,1))
-
-participant_rt_over_time <- participant_rt_over_time +
-  scale_y_continuous(name = "Mean reaction time (ms)", n.breaks = 5) +
-  xlab("Trials over time") +
+participant_rt_over_time <- ggplot(participant_paths, aes(x=trials, y=cumul_rt_mean))+
+  geom_smooth(color='black', size=3)+
+  geom_line(mapping=aes(color=p_id))+
+  scale_y_continuous(name = "Mean reaction time (sec)", n.breaks = 6) +
+  scale_x_continuous(name = "Number of trials", n.breaks = 20) +
   theme(panel.grid.major.x = element_line(size = 0.001),legend.position = 0, axis.text.y = element_text(angle=0))+
-  coord_cartesian(ylim=c(400,2000))
+  coord_cartesian(ylim=c(0.4,1.5))
 
 
-grid.arrange(participant_acc_over_time, participant_rt_over_time)
+#for(p in keys(p_dfs)){
+#  pp <- p_dfs[[p]]
+#  participant_acc_over_time <- participant_acc_over_time + 
+#    geom_line(pp, mapping=aes(x=trials, y=cumul_acc_mean, color=p_id))
+#  participant_rt_over_time <- participant_rt_over_time + 
+#    geom_line(pp, mapping=aes(x=trials, y=cumul_rt_mean, color=p_id))
+#}
 
+#participant_acc_over_time <- participant_acc_over_time +
+#  scale_y_continuous(name = "Mean accuracy", n.breaks = 5, labels = scales::percent) +
+#  scale_x_continuous(name="Number of trials",n.breaks=10)+
+#  theme(legend.position = 0, axis.text.y = element_text(angle=0), panel.grid.major.x = element_line(size = 0.001)) +
+#  coord_cartesian(ylim=c(0.55,1))
+
+
+
+#grid.arrange(participant_acc_over_time, participant_rt_over_time)
+participant_rt_over_time
 ```
 
 # Mistake Analysis w.r.t. Participant
@@ -197,13 +189,15 @@ acc_by_participant <- ggplot(participant_means,
   theme(panel.grid.major.x = element_line(colour="#f4f0ec"), axis.text.y = element_text(angle=0))
   
 acc_distribution <- ggplot(participant_means, aes(x=mean_acc))+
-  geom_histogram(bins=5)+
-  scale_x_continuous(name = "Mean Accuracy",labels=scales::percent)+
+  geom_histogram(bins=4)+
+  scale_x_continuous(name = "Mean Accuracy", n.breaks = 5,labels=scales::percent)+
   theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank())+
   geom_vline(xintercept=acc_mean)
 
 
+
 grid.arrange(acc_by_participant, acc_distribution, nrow=1, widths=c(5.5,1.5))
+acc_by_participant
 
 ```
 
@@ -235,7 +229,7 @@ low_acc_boxplot
 
 The final plot (Fig.5) of this section highlights how participants individually experienced the experiment over time. Each path represents one participant's mistake count as time moves on. Time that passed equally fast for each participant (e.g. showing the stimulus, moving on to the next) is not considered. Only time that passed while the participant was able to answer is considered. Thus, this plot does not show moments where participants took a break during the experiment's break-time screens.
 
-```{r echo=FALSE, fig.height=4, fig.width=6.5}
+```{r echo=FALSE, fig.height=5, fig.width=6.5}
 participant_paths <- exp_results[c("p_id", "accuracy", "react_time")]
 acceptable_num_mistakes <- 0.15*stim_num
 
@@ -253,7 +247,7 @@ for(i in 0:(p_num-1)){
 }
 
 #accumulated error count
-participant_paths$cumul_err <- cumul_err/stim_num
+participant_paths$cumul_err <- cumul_err#/stim_num
 
 #saved as number in minutes
 participant_paths$cumul_rt <- cumul_rt/(1000*60)
@@ -266,8 +260,7 @@ for(i in 1:p_num){
 
 #This could have been combined with the previous loop, but this way some paths could be selectively ignored when creating the plot
 participant_mistake_over_time <- ggplot(participant_paths, aes(x=cumul_rt, 
-                                                               y=cumul_err))+
-  geom_smooth(method=lm, level=0.99999)
+                                                               y=cumul_err))
 
 for(p in keys(p_dfs)){
   pp <- p_dfs[[p]]
@@ -279,16 +272,75 @@ for(p in keys(p_dfs)){
 }
 
 participant_mistake_over_time <- participant_mistake_over_time +
-  scale_y_continuous(name = "Error rate", n.breaks =9, labels=scales::percent) +
-  scale_x_continuous(name = "Time spent on stimuli (minutes)", n.breaks = 10) +
+  scale_x_continuous(name = "Real Time (minutes)", n.breaks = 10) +
   theme(panel.grid.major.x = element_line(size = 0.001),
         legend.position = 0, axis.text.y = element_text(angle = 0))
+  #scale_y_continuous(name = "Error rate", n.breaks =9, labels=scales::percent) +
 
-grid.arrange(participant_mistake_over_time, participant_acc_over_time, heights=c(5,1.5))
+participant_mistake_over_time
+
+#grid.arrange(participant_mistake_over_time, participant_acc_over_time, heights=c(5,1.5))
 ```
 
 These information should be enough to get a good idea why some participants did better or worse than others. It could also already indicate a possible issue with the experiment procedure or content. The next section will take a closer look at mistakes with respect to the stimuli and their inherent qualities.
 
+
+```{r echo=FALSE, fig.height=3.5, fig.width=7}
+ppaths <- exp_results[c("p_id", "accuracy")]
+ppaths$mistake <- abs(ppaths$accuracy-1)
+acceptable_num_mistakes <- 0.15*stim_num
+
+trials <- c(1:rows*0)
+cumul_err<- c(1:rows*0)
+
+for(i in 0:(p_num-1)){
+  err_sum <- 0
+  for(j in 1:stim_num){
+    index = (i*stim_num)+j
+    if(j == 1){
+      err_sum = ppaths$mistake[index]
+    }
+    else{
+      err_sum = err_sum + ppaths$mistake[index]
+    }
+    cumul_err[index] = err_sum
+    trials[index] = j
+  }
+}
+
+ppaths$cumul_err <- cumul_err
+ppaths$trials <- trials
+
+ppaths_to90 <- ppaths %>%
+  filter(trials < 101) 
+ppaths_after90to330 <- ppaths %>%
+  filter(trials > 100 & trials < 331) 
+ppaths_after330 <- ppaths %>%
+  filter(trials > 330) 
+
+#This could have been combined with the previous loop, but this way some paths could be selectively ignored when creating the plot
+participant_mistake_over_time_alt <- ggplot(ppaths, aes(x=trials, y=cumul_err))+
+  geom_smooth(color='black', size=3)+
+  geom_smooth(data=ppaths_to90, mapping=aes(x=trials, y=cumul_err), method = 'lm', color='red')+
+  geom_smooth(data=ppaths_after330, mapping=aes(x=trials, y=cumul_err), method = 'lm', color='red')+
+  geom_smooth(data=ppaths_after90to330, mapping=aes(x=trials, y=cumul_err), method = 'lm', color='green')+
+  geom_hline(yintercept = acceptable_num_mistakes, color='lightgray')+
+  geom_line(mapping = aes(color=p_id))+
+  ylab("Count of mistakes")+
+  scale_x_continuous(name = "Number of trials", n.breaks = 10) +
+  theme(panel.grid.major.x = element_line(size = 0.001),
+        legend.position = 0, 
+        axis.text.y = element_text(angle = 0))
+  
+participant_mistake_over_time_noY <- participant_mistake_over_time +
+  theme(axis.title.y = element_blank(),
+        axis.text.y =  element_blank(),
+        axis.ticks.y = element_blank())
+
+#grid.arrange(grid.arrange(participant_mistake_over_time_alt, participant_mistake_over_time_noY, widths=c(1,1)),participant_rt_over_time, heights=c(2,1))
+grid.arrange(participant_mistake_over_time_alt, participant_mistake_over_time_noY, widths=c(1,1))
+
+```
 \newpage
 # Mistake Analysis w.r.t. Stimulus
 
@@ -665,6 +717,8 @@ rt_box
 library(reshape2)
 
 rtable <- exp_results %>%
+  filter(index>100) %>%
+  filter(p_id != 1) %>%
   group_by(lvl, stim_type) %>%
   summarize(rt_mean = mean(react_time)) 
 
@@ -809,6 +863,65 @@ con_mat_bl <- confusionMatrix(data=df_rated_simple$proj_lvl, reference = df_rate
 con_mat_bl
 ```
 
+## Simple rating, but majority agreement is used instead of rt mean
+
+including false type stimuli
+
+```{r}
+df_for_rating <- exp_results %>%
+  group_by(lvl, c_name, branch, img, stim_type, p_id) %>%
+  mutate(lvl = ifelse(lvl=='hyponym', 'sub', ifelse(lvl=='hypernym', 'super', 'bl')))
+
+all_img <- unique(df_for_rating$img)
+df_rated_simpleplus <- data.frame()
+
+for (imag in all_img){
+  triple <- df_for_rating %>%
+    filter(img == imag)
+  
+  is_bl_to_participant = data.frame()
+  
+  for(i in 1:p_num){
+    bl <- triple[which(triple$react_time == min(triple$react_time)),]
+    is_bl_to_participant <- rbind(is_bl_to_participant, bl)
+  }
+  
+  bl_tally <- data.frame(is_bl_to_participant) %>%
+    group_by(c_name)%>%
+    tally()
+  
+  blvl <- triple[which(triple$rt_mean == min(triple$rt_mean)),]
+  triple <- triple[which(triple$rt_mean != min(triple$rt_mean)),]
+  blvl$proj_lvl <- 'bl'
+  
+  if(blvl$lvl == 'super'){
+    triple$proj_lvl <- 'sub'
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, blvl)
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, triple)
+    
+  } else if(blvl$lvl == 'bl'){
+    sublvl <- triple[which(triple$lvl == "sub"),]
+    sublvl$proj_lvl <- "sub"
+    suplvl <- triple[which(triple$lvl == "super"),]
+    suplvl$proj_lvl <- "super"
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, suplvl)
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, blvl)
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, sublvl)
+  } else{
+    triple$proj_lvl <- 'super'
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, blvl)
+    df_rated_simpleplus <- rbind(df_rated_simpleplus, triple)
+  }
+  
+}
+
+df_rated_simpleplus$lvl <- as.factor(df_rated_simpleplus$lvl)
+df_rated_simpleplus$proj_lvl <- as.factor(df_rated_simpleplus$proj_lvl)
+
+head(df_rated_simpleplus[c("c_name", "lvl", "proj_lvl")], n = 9)
+
+```
+
 ## Advanced rating
 
 ### Import rated data set from jupyter notebook
@@ -826,7 +939,7 @@ summary(adv_rated_data[c('branch', 'synset', 'expert_certainty', 'old_bl_label',
 ```
 
 ```{r}
-con_mat_bl <- confusionMatrix(data=as.factor(adv_rated_data$old_bl_label), reference = as.factor(adv_rated_data$blness_binary))
+con_mat_bl <- confusionMatrix(data=as.factor(adv_rated_data$blness_binary), reference = as.factor(adv_rated_data$old_bl_label), dnn = c("Crowd Labels", "Expert Labels"))
 con_mat_bl
 
 ```
@@ -839,6 +952,30 @@ Comparison in terms of levels
 ```
 
 
+## RT and Accuracy
+
+```{r}
+rt_acc <- exp_results %>%
+  filter(p_id != '1') %>%
+  mutate(type = ifelse(stim_type * accuracy == 1, 1,ifelse(stim_type & accuracy == 0, 3,ifelse(!stim_type & accuracy == 1, 2, 4)))) %>%
+  group_by(react_time, p_id, c_name, type) %>%
+  count() %>%
+  mutate(type = as.factor(type)) %>%
+  filter(c_name != 'furniture_n_01' & c_name != 'clothing_n_01' & c_name != 'edible_fruit_n_01' & c_name != 'musical_instrument_n_01' & c_name != 'hand_tool_n_01')
+
+rated_df <- df_rated_simple[c('c_name', 'lvl')] %>%
+  filter(c_name != 'furniture_n_01' & c_name != 'clothing_n_01' & c_name != 'edible_fruit_n_01' & c_name != 'musical_instrument_n_01' & c_name != 'hand_tool_n_01')
+
+rated_df_rts <- merge(rt_acc, rated_df, all.x=T)
+
+effect_comparison <- ggplot(data=rated_df_rts, 
+                            mapping=aes(x=react_time, y=c_name), color=lvl) +
+  geom_point() +
+  facet_wrap(rated_df_rts$type)+
+  coord_cartesian(xlim=c(400,1000))
+
+effect_comparison
+```
 
 
 \newpage

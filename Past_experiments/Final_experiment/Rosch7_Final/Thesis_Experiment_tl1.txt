@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+church_key_n_01 "Hand tool" "hand_tool_n_01 hypernym church_key_n_01 True" 1
+bunk_bed_n_01 "Needlenose pliers" "needlenose_pliers_n_01 hyponym bunk_bed_n_01 False" 2
+pew_n_01 "Musical instrument" "musical_instrument_n_01 hypernym pew_n_01 False" 2
+church_key_n_01 "Church key" "church_key_n_01 hyponym church_key_n_01 True" 1
+highboy_n_01 "Bassoon" "bassoon_n_01 bl highboy_n_01 False" 2
+bikini_n_02 "Chest of drawers" "chest_of_drawers_n_01 bl bikini_n_02 False" 2
+armoire_n_01 "Clarinet" "clarinet_n_01 bl armoire_n_01 False" 2
+cherimoya_n_02 "Edible fruit" "edible_fruit_n_01 hypernym cherimoya_n_02 True" 1
+needlenose_pliers_n_01 "Pliers" "pliers_n_01 bl needlenose_pliers_n_01 True" 1
+granadilla_n_04 "Hammer" "hammer_n_02 bl granadilla_n_04 False" 2
+lyre_n_01 "Head covering" "veil_n_01 bl lyre_n_01 False" 2
+miniskirt_n_01 "Furniture" "furniture_n_01 hypernym miniskirt_n_01 False" 2
+muffler_n_02 "Scarf" "scarf_n_01 bl muffler_n_02 True" 1
+dresser_n_05 "Dresser" "dresser_n_05 hyponym dresser_n_05 True" 1
+watermelon_n_02 "Tank top" "tank_top_n_01 hyponym watermelon_n_02 False" 2
+spinet_n_02 "Melon" "melon_n_01 bl spinet_n_02 False" 2
+highhat_cymbal_n_01 "Musical instrument" "musical_instrument_n_01 hypernym highhat_cymbal_n_01 True" 1
+putty_knife_n_01 "Putty knife" "putty_knife_n_01 hyponym putty_knife_n_01 True" 1
+raincoat_n_01 "Clothing" "clothing_n_01 hypernym raincoat_n_01 True" 1
+highboy_n_01 "Business suit" "business_suit_n_01 hyponym highboy_n_01 False" 2
