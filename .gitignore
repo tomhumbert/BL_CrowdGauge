@@ -130,5 +130,6 @@ dmypy.json
 
 #personal data
 Past_experiments/Pilot2/collected_data
+Past_experiments/Final_experiment/collected_data
 .Rproj.user
 BL_CrowdGauge.Rproj

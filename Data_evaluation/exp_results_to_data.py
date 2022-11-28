@@ -79,6 +79,7 @@ def data_from_exp_files(file_path):
     return participant_experiment_results, participant_info
 
 def main():
+    # Setting the current working directory, which should be one of the past conducted experiments.
     cwd = os.path.join(os.getcwd(), "Past_experiments")
     # This needs to be set accordingly
     EXPERIMENT_DIRECTORY = "Final_experiment"

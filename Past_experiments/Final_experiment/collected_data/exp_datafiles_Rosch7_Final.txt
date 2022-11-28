@@ -1,1 +1,12 @@
-experiment_data/Rosch7_Final.2022-11-23-1323.data.608b3790-a526-4925-9ef1-b8f529dd9713.txt
+experiment_data/Rosch7_Final.2022-11-24-1008.data.6dfe81c1-4290-4cb0-b762-2b62276396b4.txt
+experiment_data/Rosch7_Final.2022-11-24-1027.data.120b6e6b-37e0-4021-9ccb-28c9795ec4eb.txt
+experiment_data/Rosch7_Final.2022-11-24-1008.data.1511d81c-e04b-4fed-8967-8058e8f35f78.txt
+experiment_data/Rosch7_Final.2022-11-24-1010.data.de1592ad-0f5b-4dde-923a-e8703e87d474.txt
+experiment_data/Rosch7_Final.2022-11-24-1012.data.6170529f-29bd-4b97-b800-d14eb78a7f9c.txt
+experiment_data/Rosch7_Final.2022-11-24-1014.data.054de82a-7835-4f1b-83b3-af17e39d7d41.txt
+experiment_data/Rosch7_Final.2022-11-24-1038.data.e3b607e0-6916-4ba8-bd19-ab668922f3b8.txt
+experiment_data/Rosch7_Final.2022-11-24-1000.data.cf54b2bc-0a1e-4ba2-b365-ffca72e64215.txt
+experiment_data/Rosch7_Final.2022-11-24-1008.data.cf80aa70-b278-413a-b6aa-9809ca09433d.txt
+experiment_data/Rosch7_Final.2022-11-24-1017.data.48c5ec77-ccdd-42d7-9ca4-95199ba994fc.txt
+experiment_data/Rosch7_Final.2022-11-24-1014.data.e7d2b7c7-696e-44a8-8d7a-052fd9297eb6.txt
+experiment_data/Rosch7_Final.2022-11-24-1022.data.e0aa6604-dd5f-4a5a-9316-20c0e04630b8.txt
