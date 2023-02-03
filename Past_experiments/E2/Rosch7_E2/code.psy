@@ -1,0 +1,931 @@
+options
+    background color white
+    bitmapdir images
+
+bitmaps
+    include Thesis_Experiment_images.txt
+    cross
+    check
+    true_bar
+    false_bar
+    FINAL_Intro1
+    FINAL_Intro2
+    FINAL_Intro3
+    FINAL_IntroTrain
+    FINAL_IntroExp
+    FINAL_break_screen
+
+fonts
+    arial 20
+    bahn BAHNSCHRIFT.TTF 40
+
+table all_tasks0
+    include Thesis_Experiment_tl0.txt
+
+table all_tasks1
+    include Thesis_Experiment_tl1.txt
+
+table all_tasks2
+    include Thesis_Experiment_tl2.txt
+
+table all_tasks3
+    include Thesis_Experiment_tl3.txt
+
+table all_tasks4
+    include Thesis_Experiment_tl4.txt
+
+table all_tasks5
+    include Thesis_Experiment_tl5.txt
+
+table all_tasks6
+    include Thesis_Experiment_tl6.txt
+
+table all_tasks7
+    include Thesis_Experiment_tl7.txt
+
+table all_tasks8
+    include Thesis_Experiment_tl8.txt
+
+table all_tasks9
+    include Thesis_Experiment_tl9.txt
+
+table all_tasks10
+    include Thesis_Experiment_tl10.txt
+
+table all_tasks11
+    include Thesis_Experiment_tl11.txt
+
+table all_tasks12
+    include Thesis_Experiment_tl12.txt
+
+table all_tasks13
+    include Thesis_Experiment_tl13.txt
+
+table all_tasks14
+    include Thesis_Experiment_tl14.txt
+
+table all_tasks15
+    include Thesis_Experiment_tl15.txt
+
+table all_tasks16
+    include Thesis_Experiment_tl16.txt
+
+table all_tasks17
+    include Thesis_Experiment_tl17.txt
+
+table all_tasks18
+    include Thesis_Experiment_tl18.txt
+
+table all_tasks19
+    include Thesis_Experiment_tl19.txt
+
+part rest_of_experiment
+    keys l a
+    show bitmap true_bar 390 0
+    show bitmap false_bar -390 0
+    show text @2 0 -200 0 0 0
+    delay 500
+    show bitmap @1 0 100
+    readkey @4 10000
+    if STATUS != CORRECT                   # if you make an error
+        show bitmap cross                  # show a blinking cross for a wrong answer
+        delay 50                           
+        clear 5
+        delay 50                           
+        show bitmap cross                 
+        delay 50                           
+    fi
+    if STATUS == CORRECT                    
+        show bitmap check                  # Checkmark for a correct answer
+        delay 80                           
+    fi
+    clear 5                            # and then clear
+    delay 10                           # 10 ms for the drama
+    clear 3 4
+    delay 200                              
+    save TABLEROW @3 STATUS RT &is_exp            # save data to file
+
+task Rosch0
+    font bahn
+    table all_tasks0
+    part rest_of_experiment
+
+task Rosch1
+    font bahn
+    table all_tasks1
+    part rest_of_experiment
+
+task Rosch2
+    font bahn
+    table all_tasks2
+    part rest_of_experiment
+
+task Rosch3
+    font bahn
+    table all_tasks3
+    part rest_of_experiment
+
+task Rosch4
+    font bahn
+    table all_tasks4
+    part rest_of_experiment
+
+task Rosch5
+    font bahn
+    table all_tasks5
+    part rest_of_experiment
+
+task Rosch6
+    font bahn
+    table all_tasks6
+    part rest_of_experiment
+
+task Rosch7
+    font bahn
+    table all_tasks7
+    part rest_of_experiment
+
+task Rosch8
+    font bahn
+    table all_tasks8
+    part rest_of_experiment
+
+task Rosch9
+    font bahn
+    table all_tasks9
+    part rest_of_experiment
+
+task Rosch10
+    font bahn
+    table all_tasks10
+    part rest_of_experiment
+
+task Rosch11
+    font bahn
+    table all_tasks11
+    part rest_of_experiment
+
+task Rosch12
+    font bahn
+    table all_tasks12
+    part rest_of_experiment
+
+task Rosch13
+    font bahn
+    table all_tasks13
+    part rest_of_experiment
+
+task Rosch14
+    font bahn
+    table all_tasks14
+    part rest_of_experiment
+
+task Rosch15
+    font bahn
+    table all_tasks15
+    part rest_of_experiment
+
+task Rosch16
+    font bahn
+    table all_tasks16
+    part rest_of_experiment
+
+task Rosch17
+    font bahn
+    table all_tasks17
+    part rest_of_experiment
+
+task Rosch18
+    font bahn
+    table all_tasks18
+    part rest_of_experiment
+
+task Rosch19
+    font bahn
+    table all_tasks19
+    part rest_of_experiment
+
+message FINAL_Intro1
+message FINAL_Intro2
+message FINAL_Intro3
+message FINAL_IntroTrain
+
+block group0
+    delay 500
+    set &is_exp 0
+    tasklist
+        Rosch0 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 20 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 20"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group1
+    delay 500
+    tasklist
+        Rosch1 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 40 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 40"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group2
+    delay 500
+    tasklist
+        Rosch2 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 60 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 60"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group3
+    delay 500
+    tasklist
+        Rosch3 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 80 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 80"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group4
+    delay 500
+    tasklist
+        Rosch4 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 100 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 100"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group5
+    delay 500
+    tasklist
+        Rosch5 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 120 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 120"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group6
+    delay 500
+    tasklist
+        Rosch6 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 140 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 140"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group7
+    delay 500
+    tasklist
+        Rosch7 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 160 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 160"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group8
+    delay 500
+    tasklist
+        Rosch8 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 180 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 180"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group9
+    delay 500
+    tasklist
+        Rosch9 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 200 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 200"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group10
+    delay 500
+    tasklist
+        Rosch10 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 220 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 220"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group11
+    delay 500
+    tasklist
+        Rosch11 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 240 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 240"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group12
+    delay 500
+    tasklist
+        Rosch12 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 260 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 260"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group13
+    delay 500
+    tasklist
+        Rosch13 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 280 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 280"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group14
+    delay 500
+    tasklist
+        Rosch14 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 300 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 300"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group15
+    delay 500
+    tasklist
+        Rosch15 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 320 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 320"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group16
+    delay 500
+    tasklist
+        Rosch16 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 340 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 340"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group17
+    delay 500
+    tasklist
+        Rosch17 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 360 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 360"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group18
+    delay 500
+    tasklist
+        Rosch18 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 380 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 380"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group19
+    delay 500
+    tasklist
+        Rosch19 16 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 0
+        set &acc perc 396 ; select c6 == 1  && c8 == 0
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 396"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_IntroExp
+
+block group20
+    delay 500
+    set &is_exp 1
+    tasklist
+        Rosch0 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 20 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 20"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group21
+    delay 500
+    tasklist
+        Rosch1 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 40 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 40"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group22
+    delay 500
+    tasklist
+        Rosch2 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 60 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 60"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group23
+    delay 500
+    tasklist
+        Rosch3 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 80 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 80"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group24
+    delay 500
+    tasklist
+        Rosch4 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 100 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 100"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group25
+    delay 500
+    tasklist
+        Rosch5 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 120 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 120"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group26
+    delay 500
+    tasklist
+        Rosch6 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 140 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 140"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group27
+    delay 500
+    tasklist
+        Rosch7 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 160 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 160"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group28
+    delay 500
+    tasklist
+        Rosch8 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 180 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 180"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group29
+    delay 500
+    tasklist
+        Rosch9 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 200 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 200"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group30
+    delay 500
+    tasklist
+        Rosch10 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 220 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 220"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group31
+    delay 500
+    tasklist
+        Rosch11 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 240 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 240"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group32
+    delay 500
+    tasklist
+        Rosch12 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 260 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 260"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group33
+    delay 500
+    tasklist
+        Rosch13 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 280 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 280"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group34
+    delay 500
+    tasklist
+        Rosch14 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 300 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 300"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group35
+    delay 500
+    tasklist
+        Rosch15 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 320 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 320"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group36
+    delay 500
+    tasklist
+        Rosch16 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 340 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 340"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group37
+    delay 500
+    tasklist
+        Rosch17 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 360 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 360"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group38
+    delay 500
+    tasklist
+        Rosch18 20 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 380 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 380"
+        text 0 90 "Press the spacebar to continue to the break screen."
+    end
+
+message FINAL_break_screen
+
+block group39
+    delay 500
+    tasklist
+        Rosch19 16 fixed
+    end
+    feedback
+        set &correct count ; select c6 == 1  && c8 == 1
+        set &acc perc 396 ; select c6 == 1  && c8 == 1
+        text align center
+        text color black
+        text 0 -35 "Well done! This is the end of the experiment!"
+        text 0 0  &acc ; prefix "Your accuracy is at: " ; postfix "%"
+        text 0 30 &correct ; prefix "Thats " ; postfix " correct answers out of 396"
+        text 0 90 "Press the spacebar to leave the experiment."
+    end

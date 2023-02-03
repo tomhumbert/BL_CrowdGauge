@@ -1,0 +1,6 @@
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1752.data.aedc22f7-2ceb-466f-8609-3db61c39328c.txt
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1526.data.a8650f22-a290-4d96-8614-5a1add4ee5b2.txt
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1806.data.b864b455-9478-42cc-8fc2-cb7d9e90100f.txt
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1349.data.1423ef2c-577e-4417-ae86-3ec72e5cd216.txt
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1805.data.a2a548d1-a5f3-49c1-a793-e325c4f94ff7.txt
+experiment_data/Thesis_Rosch_exp7.2022-08-12-1546.data.9866ce16-0b47-4859-8bea-9e7bc758c35d.txt

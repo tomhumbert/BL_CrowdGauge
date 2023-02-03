@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+contrabassoon_n_01 "Bassoon" "bassoon_n_01 bl contrabassoon_n_01 True" 1
+bathrobe_n_01 "Bathrobe" "bathrobe_n_01 hyponym bathrobe_n_01 True" 1
+bass_clarinet_n_01 "Can opener" "can_opener_n_01 bl bass_clarinet_n_01 False" 2
+nailfile_n_01 "Nailfile" "nailfile_n_01 hyponym nailfile_n_01 True" 1
+floor_lamp_n_01 "Floor lamp" "floor_lamp_n_01 hyponym floor_lamp_n_01 True" 1
+granadilla_n_04 "Passion fruit" "passion_fruit_n_01 bl granadilla_n_04 True" 1
+bow_tie_n_01 "Bagpipe" "bagpipe_n_01 bl bow_tie_n_01 False" 2
+sultana_n_01 "Grape" "grape_n_01 bl sultana_n_01 True" 1
+granny_smith_n_01 "Hand tool" "hand_tool_n_01 hypernym granny_smith_n_01 False" 2
+love_seat_n_01 "High-hat cymbal" "highhat_cymbal_n_01 hyponym love_seat_n_01 False" 2
+coffee_table_n_01 "Furniture" "furniture_n_01 hypernym coffee_table_n_01 True" 1
+dresser_n_05 "Edible fruit" "edible_fruit_n_01 hypernym dresser_n_05 False" 2
+bongo_n_01 "Coffee table" "coffee_table_n_01 hyponym bongo_n_01 False" 2
+piccolo_n_01 "Musical instrument" "musical_instrument_n_01 hypernym piccolo_n_01 True" 1
+sackbut_n_01 "Trombone" "trombone_n_01 bl sackbut_n_01 True" 1
+highhat_cymbal_n_01 "Chair" "chair_n_01 bl highhat_cymbal_n_01 False" 2
+dresser_n_05 "Cabinet" "cabinet_n_01 bl dresser_n_05 True" 1
+musette_n_01 "Bagpipe" "bagpipe_n_01 bl musette_n_01 True" 1
+bongo_n_01 "Musical instrument" "musical_instrument_n_01 hypernym bongo_n_01 True" 1
+church_key_n_01 "Can opener" "can_opener_n_01 bl church_key_n_01 True" 1

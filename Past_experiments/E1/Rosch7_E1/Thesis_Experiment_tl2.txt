@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+bikini_n_02 "Hand tool" "hand_tool_n_01 hypernym bikini_n_02 False" 2
+business_suit_n_01 "Edible fruit" "edible_fruit_n_01 hypernym business_suit_n_01 False" 2
+heckelphone_n_01 "Heckelphone" "heckelphone_n_01 hyponym heckelphone_n_01 True" 1
+granadilla_n_04 "Edible fruit" "edible_fruit_n_01 hypernym granadilla_n_04 True" 1
+muffler_n_02 "Muffler" "muffler_n_02 hyponym muffler_n_02 True" 1
+needlenose_pliers_n_01 "Musical instrument" "musical_instrument_n_01 hypernym needlenose_pliers_n_01 False" 2
+piccolo_n_01 "Furniture" "furniture_n_01 hypernym piccolo_n_01 False" 2
+campstool_n_01 "Edible fruit" "edible_fruit_n_01 hypernym campstool_n_01 False" 2
+bow_tie_n_01 "Spade" "spade_n_02 hyponym bow_tie_n_01 False" 2
+armoire_n_01 "Wardrobe" "wardrobe_n_01 bl armoire_n_01 True" 1
+bitter_orange_n_02 "Edible fruit" "edible_fruit_n_01 hypernym bitter_orange_n_02 True" 1
+floor_lamp_n_01 "Lamp" "lamp_n_02 bl floor_lamp_n_01 True" 1
+cathedra_n_01 "Furniture" "furniture_n_01 hypernym cathedra_n_01 True" 1
+tank_top_n_01 "Stool" "stool_n_01 bl tank_top_n_01 False" 2
+cradle_n_01 "Furniture" "furniture_n_01 hypernym cradle_n_01 True" 1
+crescent_wrench_n_01 "Wrench" "wrench_n_03 bl crescent_wrench_n_01 True" 1
+bathrobe_n_01 "Musical instrument" "musical_instrument_n_01 hypernym bathrobe_n_01 False" 2
+crescent_wrench_n_01 "Flute" "flute_n_01 bl crescent_wrench_n_01 False" 2
+bathrobe_n_01 "Heart cherry" "heart_cherry_n_02 hyponym bathrobe_n_01 False" 2
+highboy_n_01 "Furniture" "furniture_n_01 hypernym highboy_n_01 True" 1

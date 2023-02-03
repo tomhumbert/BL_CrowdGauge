@@ -1,0 +1,21 @@
+#-image-----------------label-----------------------condition (concept, group, image, exp_response)----------------------correct_response-
+face_veil_n_01 "Face veil" "face_veil_n_01 hyponym face_veil_n_01 True" 1
+lyre_n_01 "Trouser" "trouser_n_01 bl lyre_n_01 False" 2
+brick_trowel_n_01 "Hand tool" "hand_tool_n_01 hypernym brick_trowel_n_01 True" 1
+bass_clarinet_n_01 "Bass clarinet" "bass_clarinet_n_01 hyponym bass_clarinet_n_01 True" 1
+euphonium_n_01 "Euphonium" "euphonium_n_01 hyponym euphonium_n_01 True" 1
+euphonium_n_01 "Clothing" "clothing_n_01 hypernym euphonium_n_01 False" 2
+bitter_orange_n_02 "Musical instrument" "musical_instrument_n_01 hypernym bitter_orange_n_02 False" 2
+tank_top_n_01 "Tank top" "tank_top_n_01 hyponym tank_top_n_01 True" 1
+bunk_bed_n_01 "Cymbal" "cymbal_n_01 bl bunk_bed_n_01 False" 2
+needlenose_pliers_n_01 "Musical instrument" "musical_instrument_n_01 hypernym needlenose_pliers_n_01 False" 2
+damson_n_01 "Smooth plane" "smooth_plane_n_01 hyponym damson_n_01 False" 2
+handsaw_n_01 "Furniture" "furniture_n_01 hypernym handsaw_n_01 False" 2
+piccolo_n_01 "Piccolo" "piccolo_n_01 hyponym piccolo_n_01 True" 1
+crescent_wrench_n_01 "Hand tool" "hand_tool_n_01 hypernym crescent_wrench_n_01 True" 1
+cape_n_02 "Trowel" "trowel_n_01 bl cape_n_02 False" 2
+crescent_wrench_n_01 "Cherimoya" "cherimoya_n_02 hyponym crescent_wrench_n_01 False" 2
+floor_lamp_n_01 "Lime" "lime_n_06 bl floor_lamp_n_01 False" 2
+stradavarius_n_01 "Musical instrument" "musical_instrument_n_01 hypernym stradavarius_n_01 True" 1
+bass_clarinet_n_01 "Bradawl" "bradawl_n_01 hyponym bass_clarinet_n_01 False" 2
+sackbut_n_01 "Suit" "suit_n_01 bl sackbut_n_01 False" 2
