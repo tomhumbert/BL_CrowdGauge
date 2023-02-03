@@ -8,8 +8,11 @@ A GUI to explore WordNet categories, select triples and construct experiments to
 
 2. [Data_evaluation] Evaluation scripts for experiment results
 Contains:
+
  a. R notebook to evaluate the experiment results qualities, which generates a document (found in [Informative_PDF]).
+ 
  b. Jupyter notebook to create annotations from experiment results, i.e. reaction times to visual stimuli.
+ 
  c. [Deprecated as it is integrated into the Jupyter Notebook now] A script that transforms the collected data (experiment results) into the format needed for evaluation. 
 
 3. [Informative_PDF] Documents created during the project
