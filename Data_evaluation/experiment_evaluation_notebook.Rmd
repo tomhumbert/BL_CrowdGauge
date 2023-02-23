@@ -37,7 +37,8 @@ r_folder <- "../Past_experiments/E2/computed_data/"
 
 # Declaring files containing answers and participants.
 results_file = paste(r_folder,"data_all_ans.csv", sep="")
-participant_file = paste(r_folder,"data_all_participants.csv", sep="")
+#participant_file = paste(r_folder,"data_all_participants.csv", sep="")
+participant_file = "D:/VU/BL_CrowdGauge-BACKUP/Past_experiments/E2/computed_data/data_all_participants.csv"
 
 # Loading data
 results <- read_csv(results_file, col_types = cols('i','i','l','c','c','f','c','l','f','i','i'))
@@ -490,7 +491,7 @@ Stimuli that received the most erroneous answers. The cutoff is made where 30% o
 mistake_by_stim <- exp_results %>%
   group_by(stimulus, lvl) %>%
   summarise(error = (1-mean(accurate))) %>%
-  filter(error>0.3)
+  filter(error>0.5)
 
 m_by_stim_plot <- ggplot(mistake_by_stim, aes(x=error, y=reorder(stimulus, desc(-error)), fill=lvl)) +
   geom_col() +
@@ -500,7 +501,7 @@ m_by_stim_plot <- ggplot(mistake_by_stim, aes(x=error, y=reorder(stimulus, desc(
         panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
   scale_x_continuous(labels=scales::percent) +
   labs(title="High error Stimuli.", fill="Category \nlevel") +
-  xlab("Accuracy")
+  xlab("Inaccuracy")
 
 
 m_by_stim_plot
@@ -526,7 +527,7 @@ m_by_img_plot <- ggplot(mistake_by_img, aes(x=error, y=reorder(img, desc(-error)
         panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
   scale_x_continuous(labels=scales::percent) +
   labs(title="Images receiving many mistakes.") +
-  xlab("Accuracy")
+  xlab("Inaccuracy")
 
 m_by_img_plot
 
@@ -551,7 +552,7 @@ m_by_name_plot <- ggplot(mistake_by_name, aes(x=error, y=reorder(c_name, desc(-e
         panel.grid.minor = element_line(size=0.02, colour = "#c0c0c0")) +
   scale_x_continuous(labels=scales::percent) +
   labs(title="Category names receiving many mistakes.", fill="Level") +
-  xlab("Accuracy")
+  xlab("Inaccuracy")
 
 m_by_name_plot
 
@@ -649,7 +650,7 @@ print(mistake_branch)
 ```
 
 ```{r fig.height=2, fig.width=7}
-grid.arrange(m_by_branch_plot,plot_mistake_overview_dist, widths=c(5,2))
+acc_inf <- grid.arrange(m_by_branch_plot,plot_mistake_overview_dist, widths=c(5,2))
 ```
 
 \newpage
@@ -971,6 +972,8 @@ Ultimately, the experiment is conducted to determine the basic level category na
 
 In this section, we see a simple implementation to declare which category name from the triple is the basic level (super- and subordinates can be inferred). For each triple, the category name with the fastest mean reaction time is chosen as basic level. Below, you can see the top nine results of the evaluation. Thereafter follows a confusion matrix of expected and predicted levels.
 
+USING MEAN:
+
 ```{r echo=FALSE, message=FALSE, warning=TRUE}
 df_for_rating <- exp_results %>%
   filter(stim_type == T) %>%
@@ -1016,11 +1019,117 @@ head(df_rated_simple[c("c_name", "lvl", "proj_lvl")], n = 9)
 
 ```
 
+USING MEDIAN:
+
+```{r echo=FALSE, message=FALSE, warning=TRUE}
+df_for_rating <- exp_results %>%
+  filter(stim_type == T) %>%
+  group_by(lvl, c_name, branch, img) %>%
+  summarise(rt_median = median(react_time), acc_median = median(accurate)) %>%
+  mutate(lvl = ifelse(lvl=='hyponym', 'sub', ifelse(lvl=='hypernym', 'super', 'bl')))
+
+all_img <- unique(df_for_rating$img)
+df_rated_simple2 <- data.frame()
+
+for (imag in all_img){
+  triple <- df_for_rating %>%
+    filter(img == imag)
+  blvl <- triple[which(triple$rt_median == min(triple$rt_median)),]
+  triple <- triple[which(triple$rt_median != min(triple$rt_median)),]
+  blvl$proj_lvl <- 'bl'
+  
+  if(length(blvl$lvl)>1){
+    print("Two fastest times")
+  } else if(blvl$lvl == 'super'){
+    triple$proj_lvl <- 'sub'
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, triple)
+    
+  } else if(blvl$lvl == 'bl'){
+    sublvl <- triple[which(triple$lvl == "sub"),]
+    sublvl$proj_lvl <- "sub"
+    suplvl <- triple[which(triple$lvl == "super"),]
+    suplvl$proj_lvl <- "super"
+    df_rated_simple2 <- rbind(df_rated_simple2, suplvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, sublvl)
+  } else{
+    triple$proj_lvl <- 'super'
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, triple)
+  }
+  
+}
+
+df_rated_simple2$lvl <- as.factor(df_rated_simple2$lvl)
+df_rated_simple2$proj_lvl <- as.factor(df_rated_simple2$proj_lvl)
+
+head(df_rated_simple2[c("c_name", "lvl", "proj_lvl")], n = 9)
+
+```
+USING MEDIAN + remove highly inaccurate:
+
+```{r echo=FALSE, message=FALSE, warning=TRUE}
+very_accurate <- exp_results %>%
+  group_by(c_name) %>%
+  summarise(acc = mean(accurate)) %>%
+  filter(acc > 0.89)
+
+df_for_rating <- exp_results %>%
+  filter(stim_type == T) %>%
+  filter(c_name %in% very_accurate$c_name) %>%
+  group_by(lvl, c_name, branch, img) %>%
+  summarise(rt_median = median(react_time), acc_median = median(accurate)) %>%
+  mutate(lvl = ifelse(lvl=='hyponym', 'sub', ifelse(lvl=='hypernym', 'super', 'bl')))
+
+all_img <- unique(df_for_rating$img)
+df_rated_simple2 <- data.frame()
+
+for (imag in all_img){
+  triple <- df_for_rating %>%
+    filter(img == imag)
+  blvl <- triple[which(triple$rt_median == min(triple$rt_median)),]
+  triple <- triple[which(triple$rt_median != min(triple$rt_median)),]
+  blvl$proj_lvl <- 'bl'
+  
+  if(length(blvl$lvl)>1){
+    print("Two fastest times")
+  } else if(blvl$lvl == 'super'){
+    triple$proj_lvl <- 'sub'
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, triple)
+    
+  } else if(blvl$lvl == 'bl'){
+    sublvl <- triple[which(triple$lvl == "sub"),]
+    sublvl$proj_lvl <- "sub"
+    suplvl <- triple[which(triple$lvl == "super"),]
+    suplvl$proj_lvl <- "super"
+    df_rated_simple2 <- rbind(df_rated_simple2, suplvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, sublvl)
+  } else{
+    triple$proj_lvl <- 'super'
+    df_rated_simple2 <- rbind(df_rated_simple2, blvl)
+    df_rated_simple2 <- rbind(df_rated_simple2, triple)
+  }
+  
+}
+
+df_rated_simple2$lvl <- as.factor(df_rated_simple2$lvl)
+df_rated_simple2$proj_lvl <- as.factor(df_rated_simple2$proj_lvl)
+
+head(df_rated_simple2[c("c_name", "lvl", "proj_lvl")], n = 9)
+
+```
+
 ```{r echo=FALSE, message=FALSE}
 library(caret)
 
 con_mat_bl <- confusionMatrix(data=df_rated_simple$proj_lvl, reference = df_rated_simple$lvl)
 con_mat_bl
+
+con_mat_bl2 <- confusionMatrix(data=df_rated_simple2$proj_lvl, reference = df_rated_simple2$lvl)
+con_mat_bl2
 ```
 
 ## Simple rating, but majority agreement is used instead of rt mean
@@ -1134,7 +1243,17 @@ effect_comparison <- ggplot(data=rated_df_rts,
 effect_comparison
 ```
 
+```{r}
+stims <- exp_results %>%
+  filter(stim_type == T) %>%
+  group_by(c_name, img, branch) %>%
+  summarise(acc = mean(react_time)) %>%
+  arrange(-desc(img)) %>%
+  arrange(-desc(branch))
 
+stims
+
+```
 \newpage
 
 # References
