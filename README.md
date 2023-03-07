@@ -22,4 +22,4 @@ D. [Past_experiments] Experiments and their results
 Each experiment (Pilot, Experiment 1 and Experiment 2) have their own folder.
 Each folder contains:
  1. Experiment as-it-was when uploaded to PsyToolkit
- 2. The processed data (through 3.) used as input for evaluation (in 2.a.).
+ 2. The processed data (through B.2.) used as input for evaluation (in B.1.).
